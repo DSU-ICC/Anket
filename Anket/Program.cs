@@ -16,8 +16,8 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddCors();
 
-//builder.Services.AddDbContext<BASEPERSONMDFContext>(options =>
-//    options.UseSqlServer(builder.Configuration.GetConnectionString("BasePerson"), providerOptions => providerOptions.EnableRetryOnFailure()));
+builder.Services.AddDbContext<BASEPERSONMDFContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("BasePerson"), providerOptions => providerOptions.EnableRetryOnFailure()));
 builder.Services.AddDbContext<DsuContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("BaseDekanat"), providerOptions => providerOptions.EnableRetryOnFailure()));
 builder.Services.AddDbContext<ApplicationContext>(options =>
