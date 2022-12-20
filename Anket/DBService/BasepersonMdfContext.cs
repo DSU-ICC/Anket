@@ -119,7 +119,7 @@ public partial class BasepersonMdfContext : DbContext
         {
             entity.HasKey(e => e.PersonId).HasName("PK_person_1");
 
-            entity.ToTable("person", tb => tb.HasTrigger("Trigger_person"));
+            //entity.ToTable("person", tb => tb.HasTrigger("Trigger_person"));
 
             entity.Property(e => e.PersonId).HasColumnName("person_id");
             entity.Property(e => e.AdditionalInfo)

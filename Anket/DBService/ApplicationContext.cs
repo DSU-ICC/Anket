@@ -4,11 +4,11 @@ using Anket.Models;
 
 namespace Anket.DBService
 {
-    public class ApplicationContext : IdentityDbContext<User>
+    public class ApplicationContext : IdentityDbContext<Moderator>
     {
-        public DbSet<Question> Disciplines { get; set; } = null!;
-        public DbSet<Answer> Profiles { get; set; } = null!;
-        public DbSet<Result> FileModels { get; set; } = null!;
+        public DbSet<Question> Questions { get; set; } = null!;
+        public DbSet<Answer> Answers { get; set; } = null!;
+        public DbSet<Result> Results { get; set; } = null!;
 
         public ApplicationContext(DbContextOptions<ApplicationContext> options)
             : base(options)
