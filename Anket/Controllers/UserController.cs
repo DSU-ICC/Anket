@@ -46,9 +46,7 @@ namespace EorDSU.Controllers
                 Moderator user = new() { UserName = model.Login};
                 var result = await _userManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
-                {
                     return Ok();
-                }
             }
             return BadRequest();
         }

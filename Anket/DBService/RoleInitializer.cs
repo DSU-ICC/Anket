@@ -16,9 +16,7 @@ namespace Anket.Settings
                 Moderator admin = new() { UserName = adminLogin };
                 IdentityResult result = await userManager.CreateAsync(admin, password);
                 if (result.Succeeded)
-                {
-                    await userManager.AddToRoleAsync(admin, "admin");
-                }
+                    await userManager.AddToRoleAsync(admin, "admin");                
             }
         }
     }

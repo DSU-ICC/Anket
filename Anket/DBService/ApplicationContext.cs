@@ -6,9 +6,11 @@ namespace Anket.DBService
 {
     public class ApplicationContext : IdentityDbContext<Moderator>
     {
+        public DbSet<Anketa> Anketas { get; set; } = null!;
         public DbSet<Question> Questions { get; set; } = null!;
         public DbSet<Answer> Answers { get; set; } = null!;
         public DbSet<Result> Results { get; set; } = null!;
+        public DbSet<TestingTeacher> TestingTeachers { get; set; } = null!;
 
         public ApplicationContext(DbContextOptions<ApplicationContext> options)
             : base(options)

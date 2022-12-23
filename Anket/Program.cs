@@ -1,5 +1,7 @@
 using Anket.DBService;
+using Anket.Interface;
 using Anket.Models;
+using Anket.Services;
 using Anket.Settings;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -17,10 +19,10 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddCors();
 
-//builder.Services.AddDbContext<BASEPERSONMDFContext>(options =>
-//    options.UseSqlServer(builder.Configuration.GetConnectionString("BasePerson"), providerOptions => providerOptions.EnableRetryOnFailure()));
-//builder.Services.AddDbContext<DSUContext>(options =>
-//    options.UseSqlServer(builder.Configuration.GetConnectionString("BaseDekanat"), providerOptions => providerOptions.EnableRetryOnFailure()));
+builder.Services.AddDbContext<BasepersonMdfContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("BasePerson"), providerOptions => providerOptions.EnableRetryOnFailure()));
+builder.Services.AddDbContext<DsuContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("BaseDekanat"), providerOptions => providerOptions.EnableRetryOnFailure()));
 builder.Services.AddDbContext<ApplicationContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("EOR"), providerOptions => providerOptions.EnableRetryOnFailure()));
 
@@ -35,9 +37,6 @@ builder.Services.AddIdentity<Moderator, IdentityRole>(
                })
                .AddEntityFrameworkStores<ApplicationContext>();
 
-//builder.Services.AddScoped<IActiveData, ActiveDataRepository>();
-//builder.Services.AddScoped<ISearchEntity, SearchEntityRepository>();
-
 builder.WebHost.ConfigureServices(configure => SentrySdk.Init(o =>
 {
     // Tells which project in Sentry to send events to:
@@ -50,6 +49,8 @@ builder.WebHost.ConfigureServices(configure => SentrySdk.Init(o =>
     // Enable Global Mode if running in a client app
     o.IsGlobalModeEnabled = true;
 }));
+
+builder.Services.AddDBService();
 
 builder.Services.AddAuthorization();
 

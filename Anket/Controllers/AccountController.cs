@@ -39,13 +39,9 @@ namespace Anket.Controllers
                 var result =
                     await _signInManager.PasswordSignInAsync(model.Login, model.Password, false, false);
                 if (result.Succeeded)
-                {
                     return Ok();
-                }
                 else
-                {
                     ModelState.AddModelError("", "Неправильный логин и (или) пароль");
-                }
             }
             return BadRequest();
         }
