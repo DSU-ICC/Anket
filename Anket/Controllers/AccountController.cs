@@ -1,6 +1,5 @@
 ﻿using Anket.DBService;
 using Anket.Models;
-using Anket.Settings;
 using Anket.ViewModels;
 using Microsoft.AspNetCore.Authentication.OAuth;
 using Microsoft.AspNetCore.Identity;
@@ -39,7 +38,7 @@ namespace Anket.Controllers
                 var result =
                     await _signInManager.PasswordSignInAsync(model.Login, model.Password, false, false);
                 if (result.Succeeded)
-                    return Ok();
+                    return Ok(result);
                 else
                     ModelState.AddModelError("", "Неправильный логин и (или) пароль");
             }

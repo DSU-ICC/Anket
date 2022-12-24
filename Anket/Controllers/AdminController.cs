@@ -9,25 +9,15 @@ namespace Anket.Controllers
     [Route("[controller]")]
     public class AdminController : Controller
     {
-        private readonly IGenericRepository<Anketa> _signInManager;
         private readonly IApplicationDBActiveData _applicationDBActiveData;
 
-        public AdminController(IGenericRepository<Anketa> signInManager, IApplicationDBActiveData applicationDBActiveData)
+        public AdminController(IApplicationDBActiveData applicationDBActiveData)
         {
-            _signInManager = signInManager;
             _applicationDBActiveData = applicationDBActiveData;
         }
         [HttpGet]
         public IActionResult Index()
         {
-            _applicationDBActiveData.
-
-            _signInManager.Create(new Anketa
-            {
-                Name = "dsad",
-                Description = "sda",
-            });
-            _signInManager.Save();
             return Ok();
         }
     }

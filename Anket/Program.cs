@@ -2,7 +2,8 @@ using Anket.DBService;
 using Anket.Interface;
 using Anket.Models;
 using Anket.Services;
-using Anket.Settings;
+using BasePersonDBService.DataContext;
+using DSUContextDBService.DataContext;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Sentry;
@@ -19,9 +20,9 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddCors();
 
-builder.Services.AddDbContext<BasepersonMdfContext>(options =>
+builder.Services.AddDbContext<BASEPERSONMDFContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("BasePerson"), providerOptions => providerOptions.EnableRetryOnFailure()));
-builder.Services.AddDbContext<DsuContext>(options =>
+builder.Services.AddDbContext<DSUContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("BaseDekanat"), providerOptions => providerOptions.EnableRetryOnFailure()));
 builder.Services.AddDbContext<ApplicationContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("EOR"), providerOptions => providerOptions.EnableRetryOnFailure()));
