@@ -13,7 +13,6 @@ namespace Anket.Services
             services.AddScoped<IDSUActiveData, DSUActiveData>();
             services.AddScoped<IBasePersonActiveData, BasePersonActiveData>();
             services.AddScoped<IApplicationDBActiveData, ApplicationDBActiveData>();
-
         }
     }
 }

@@ -66,7 +66,7 @@ namespace DSUContextDBService.Services
 
         public IQueryable<CaseSDepartment> GetCaseSDepartments()
         {
-            return _dSUContext.CaseSDepartments;
+            return _dSUContext.CaseSDepartments.Where(x => x.Deleted == false);
         }
 
         public CaseSSpecialization GetCaseSSpecialization(int id)
@@ -76,7 +76,7 @@ namespace DSUContextDBService.Services
 
         public IQueryable<CaseSSpecialization> GetCaseSSpecializations()
         {
-            return _dSUContext.CaseSSpecializations;
+            return _dSUContext.CaseSSpecializations.Where(x => x.Deleted == false);
         }
 
         public CaseSStudent GetCaseSStudent(int id)

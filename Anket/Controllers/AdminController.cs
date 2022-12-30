@@ -15,6 +15,7 @@ namespace Anket.Controllers
         {
             _applicationDBActiveData = applicationDBActiveData;
         }
+
         [HttpGet]
         public IActionResult Index()
         {

@@ -76,6 +76,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+app.ConfigureExceptionHandler();
+
 app.UseCors(builder => builder.AllowAnyOrigin());
 
 app.UseStaticFiles();

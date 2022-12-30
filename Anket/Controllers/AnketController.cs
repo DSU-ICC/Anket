@@ -1,6 +1,7 @@
 ﻿using Anket.Interface;
 using Anket.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace Anket.Controllers
 {
@@ -18,6 +19,7 @@ namespace Anket.Controllers
         [HttpPost]
         public IActionResult Index(Anketa anketa)
         {
+            _applicationDBActiveData.GetAnketa().ToListAsync();
             return Ok();
         }
     }
