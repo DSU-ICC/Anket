@@ -10,26 +10,26 @@ namespace DSUContextDBService.Interfaces
     public interface IDSUActiveData
     {
         public IQueryable<CaseSStudent> GetCaseSStudents();
-        public CaseSStudent GetCaseSStudent(int id);
+        public CaseSStudent GetCaseSStudentById(int id);
         public IQueryable<CaseSDepartment> GetCaseSDepartments();
-        public CaseSDepartment GetCaseSDepartment(int id);
+        public CaseSDepartment GetCaseSDepartmentById(int id);
         public IQueryable<CaseSSpecialization> GetCaseSSpecializations();
-        public CaseSSpecialization GetCaseSSpecialization(int id);
+        public CaseSSpecialization GetCaseSSpecializationById(int id);
         public IQueryable<CaseSTeacher> GetCaseSTeachers();
-        public CaseSTeacher GetCaseSTeacher(int id);
-        public IQueryable<CaseCStatus> GetCaseCStatuss();
-        public CaseCStatus GetCaseCStatus(int id);
+        public CaseSTeacher GetCaseSTeacherById(int id);
+        public IQueryable<CaseCStatus> GetCaseCStatus();
+        public CaseCStatus GetCaseCStatusById(int id);
         public IQueryable<CaseCEdue> GetCaseCEdues();
-        public CaseCEdue GetCaseCEdue(int id);
+        public CaseCEdue GetCaseCEdueById(int id);
         public IQueryable<CaseCEdukind> GetCaseCEdukinds();
-        public CaseCEdukind GetCaseCEdukind(int id);
+        public CaseCEdukind GetCaseCEdukindById(int id);
         public IQueryable<CaseCPlat> GetCaseCPlats();
-        public CaseCPlat GetCaseCPlat(int id);
+        public CaseCPlat GetCaseCPlatById(int id);
         public IQueryable<CaseUkoExam> GetCaseUkoExams();
-        public CaseUkoExam GetCaseUkoExam(int id);
+        public CaseUkoExam GetCaseUkoExamById(int id);
         public IQueryable<CaseUkoModule> GetCaseUkoModules();
-        public CaseUkoModule GetCaseUkoModule(int id);
+        public CaseUkoModule GetCaseUkoModuleById(int id);
         public IQueryable<CaseUkoZachet> GetCaseUkoZachets();
-        public CaseUkoZachet GetCaseUkoZachet(int id);
+        public CaseUkoZachet GetCaseUkoZachetById(int id);
     }
 }

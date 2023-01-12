@@ -1,5 +1,4 @@
 using Anket.DBService;
-using Anket.Interface;
 using Anket.Models;
 using Anket.Services;
 using BasePersonDBService.DataContext;
