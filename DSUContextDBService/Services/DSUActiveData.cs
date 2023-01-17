@@ -61,7 +61,7 @@ namespace DSUContextDBService.Services
 
         public IQueryable<CaseSDepartment> GetCaseSDepartmentByFacultyId(int? id)
         {
-            return _dSUContext.CaseSDepartments.Where(x => x.FacId == id);
+            return _dSUContext.CaseSDepartments.Where(x => x.Deleted == false && x.FacId == id);
         }
 
         public IQueryable<CaseSDepartment> GetCaseSDepartments()
