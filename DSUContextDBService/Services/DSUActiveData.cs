@@ -1,11 +1,6 @@
 ﻿using DSUContextDBService.DataContext;
 using DSUContextDBService.Interfaces;
 using DSUContextDBService.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DSUContextDBService.Services
 {
@@ -62,6 +57,11 @@ namespace DSUContextDBService.Services
         public CaseSDepartment GetCaseSDepartmentById(int id)
         {
             return _dSUContext.CaseSDepartments.FirstOrDefault(x => x.DepartmentId == id);
+        }
+
+        public IQueryable<CaseSDepartment> GetCaseSDepartmentByFacultyId(int? id)
+        {
+            return _dSUContext.CaseSDepartments.Where(x => x.FacId == id);
         }
 
         public IQueryable<CaseSDepartment> GetCaseSDepartments()
