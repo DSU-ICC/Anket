@@ -1,4 +1,4 @@
-﻿using Anket.Interface;
+﻿using Anket.Common.Interface;
 using Anket.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -9,17 +9,17 @@ namespace Anket.Controllers
     [Route("[controller]")]
     public class AnketController : Controller
     {
-        IApplicationDBActiveData _applicationDBActiveData;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public AnketController(IApplicationDBActiveData applicationDBActiveData)
+        public AnketController(IUnitOfWork unitOfWork)
         {
-            _applicationDBActiveData = applicationDBActiveData;
+            _unitOfWork = unitOfWork;
         }
 
-        [HttpPost]
-        public IActionResult Index(Anketa anketa)
+        [HttpGet]
+        public IActionResult Get()
         {
-            _applicationDBActiveData.GetAnketa().ToListAsync();
+            _unitOfWork.AnketRepository.Get().ToListAsync();
             return Ok();
         }
     }

@@ -1,5 +1,4 @@
-﻿using Anket.Interface;
-using Anket.Models;
+﻿using Anket.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Anket.Controllers

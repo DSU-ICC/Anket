@@ -1,7 +1,7 @@
 ﻿using Anket.Models;
 using Microsoft.AspNetCore.Identity;
 
-namespace Anket.Services
+namespace Anket.DBService
 {
     public class RoleInitializer
     {
