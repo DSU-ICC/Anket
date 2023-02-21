@@ -16,26 +16,12 @@ namespace Anket.Common
         private readonly ApplicationContext _context;
         private readonly BASEPERSONMDFContext _bASEPERSONMDFContext;
         private readonly DSUContext _dSUContext;
-        private readonly IWebHostEnvironment _appEnvironment;
-        private readonly IConfiguration Configuration;
 
-        public UnitOfWork(ApplicationContext context, IWebHostEnvironment appEnvironment, IConfiguration configuration, BASEPERSONMDFContext bASEPERSONMDFContext,
-            DSUContext dSUContext)
+        public UnitOfWork(ApplicationContext context, BASEPERSONMDFContext bASEPERSONMDFContext, DSUContext dSUContext)
         {
             _context = context;
             _bASEPERSONMDFContext = bASEPERSONMDFContext;
             _dSUContext = dSUContext;
-            _appEnvironment = appEnvironment;
-            Configuration = configuration;
-        }
-
-        public IAnketRepository AnketRepository
-        {
-            get
-            {
-                IAnketRepository anketRepository = new AnketaRepository(_context);
-                return anketRepository;
-            }
         }
 
         public IAnswerRepository AnswerRepository

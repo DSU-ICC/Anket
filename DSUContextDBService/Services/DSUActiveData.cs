@@ -6,8 +6,9 @@ namespace DSUContextDBService.Services
 {
     public class DSUActiveData : IDSUActiveData
     {
-        private readonly DateTime beginDate = new(DateTime.Now.Year - 1, 9, 1);
-        private readonly DateTime endDate = new(DateTime.Now.Year, 9, 1);
+        private readonly static int year = DateTime.Now.Date < new DateTime(DateTime.Now.Year, 9, 1) ? DateTime.Now.Year - 1 : DateTime.Now.Year;
+        private readonly DateTime beginDate = new(year - 1, 9, 1);
+        private readonly DateTime endDate = new(year, 9, 1);
         private readonly DSUContext _dSUContext;
         public DSUActiveData(DSUContext dSUContext)
         {
@@ -106,7 +107,7 @@ namespace DSUContextDBService.Services
 
         public IQueryable<CaseUkoExam> GetCaseUkoExams()
         {
-            return _dSUContext.CaseUkoExams.Where(x => x.Veddate > beginDate && x.Veddate < endDate);
+            return _dSUContext.CaseUkoExams.Where(x => x.Veddate > beginDate && x.Veddate < endDate && x.StudentStatus != 1);
         }
 
         public CaseUkoModule GetCaseUkoModuleById(int id)
@@ -116,7 +117,7 @@ namespace DSUContextDBService.Services
 
         public IQueryable<CaseUkoModule> GetCaseUkoModules()
         {
-            return _dSUContext.CaseUkoModules.Where(x => x.Veddate > beginDate && x.Veddate < endDate);
+            return _dSUContext.CaseUkoModules.Where(x => x.Veddate > beginDate && x.Veddate < endDate && x.StudentStatus != 1);
         }
 
         public CaseUkoZachet GetCaseUkoZachetById(int id)
@@ -126,7 +127,7 @@ namespace DSUContextDBService.Services
 
         public IQueryable<CaseUkoZachet> GetCaseUkoZachets()
         {           
-            return _dSUContext.CaseUkoZachets.Where(x => x.Veddate > beginDate && x.Veddate < endDate);
+            return _dSUContext.CaseUkoZachets.Where(x => x.Veddate > beginDate && x.Veddate < endDate && x.StudentStatus != 1);
         }
     }
 }

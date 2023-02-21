@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.Xml.Linq;
 
-namespace Anket.ViewModels
+namespace Anket.ViewModels.Account
 {
     public class LoginViewModel
     {

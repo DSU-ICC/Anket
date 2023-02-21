@@ -1,12 +1,12 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Anket.Models;
+using System.IO;
 
 namespace Anket.DBService
 {
     public class ApplicationContext : IdentityDbContext<Moderator>
     {
-        public DbSet<Anketa> Anketas { get; set; } = null!;
         public DbSet<Question> Questions { get; set; } = null!;
         public DbSet<Answer> Answers { get; set; } = null!;
         public DbSet<Result> Results { get; set; } = null!;
@@ -18,5 +18,15 @@ namespace Anket.DBService
             //Database.EnsureDeleted();   // удаляем базу данных при первом обращении
             Database.EnsureCreated();   // создаем базу данных при первом обращении
         }
+
+        //protected override void OnModelCreating(ModelBuilder modelBuilder)
+        //{
+        //    modelBuilder.Entity<Answer>()
+        //        .HasOne(p => p.Question)
+        //        .WithMany(t => t.ListAnswer)
+        //        .OnDelete(DeleteBehavior.Cascade);
+
+        //    base.OnModelCreating(modelBuilder);
+        //}
     }
 }

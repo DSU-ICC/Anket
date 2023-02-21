@@ -20,20 +20,14 @@ namespace Anket.Common
             return _dbSet.AsNoTracking();
         }
 
-        public IQueryable<TEntity> Get(Func<TEntity, bool> predicate)
+        public IEnumerable<TEntity> Get(Func<TEntity, bool> predicate)
         {
-            return _dbSet.AsNoTracking().Where(predicate).AsQueryable();
+            return _dbSet.AsNoTracking().Where(predicate);
         }
 
         public async Task<TEntity> FindById(int id)
         {
             return await _dbSet.FindAsync(id);
-        }
-
-        public async Task<TEntity> FindByName(string name)
-        {
-            var item = await _dbSet.FindAsync(name);
-            return item;
         }
 
         public async Task Create(TEntity item)
@@ -74,11 +68,11 @@ namespace Anket.Common
         {
             return Include(includeProperties);
         }
-        public IQueryable<TEntity> GetWithInclude(Func<TEntity, bool> predicate,
+        public IEnumerable<TEntity> GetWithInclude(Func<TEntity, bool> predicate,
                    params Expression<Func<TEntity, object>>[] includeProperties)
         {
             var query = Include(includeProperties);
-            return query.Where(predicate).AsQueryable();
+            return query.Where(predicate);
         }
 
         public TEntity GetWithIncludeById(Func<TEntity, bool> id,

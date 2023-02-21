@@ -25,7 +25,7 @@ builder.Services.AddDbContext<BASEPERSONMDFContext>(options =>
 builder.Services.AddDbContext<DSUContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("BaseDekanat"), providerOptions => providerOptions.EnableRetryOnFailure()));
 builder.Services.AddDbContext<ApplicationContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("EOR"), providerOptions => providerOptions.EnableRetryOnFailure()));
+    options.UseSqlServer(builder.Configuration.GetConnectionString("Anket"), providerOptions => providerOptions.EnableRetryOnFailure()));
 
 builder.Services.AddIdentity<Moderator, IdentityRole>(
                opts =>
@@ -78,7 +78,9 @@ if (app.Environment.IsDevelopment())
 
 app.ConfigureExceptionHandler();
 
-app.UseCors(builder => builder.AllowAnyOrigin());
+app.UseCors(builder => builder.AllowAnyOrigin()
+                              .AllowAnyHeader()
+                              .AllowAnyMethod());
 
 app.UseStaticFiles();
 

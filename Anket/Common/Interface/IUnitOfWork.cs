@@ -6,7 +6,6 @@ namespace Anket.Common.Interface
 {
     public interface IUnitOfWork
     {
-        IAnketRepository AnketRepository { get; }
         IAnswerRepository AnswerRepository { get; }
         IQuestionRepository QuestionRepository { get; }
         IResultRepository ResultRepository { get; }

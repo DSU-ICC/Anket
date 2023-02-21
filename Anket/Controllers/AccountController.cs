@@ -1,6 +1,6 @@
 ﻿using Anket.DBService;
 using Anket.Models;
-using Anket.ViewModels;
+using Anket.ViewModels.Account;
 using Microsoft.AspNetCore.Authentication.OAuth;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
