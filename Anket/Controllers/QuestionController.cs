@@ -1,5 +1,5 @@
-﻿using Anket.Models;
-using Anket.Repository.Interface;
+﻿using DomainService.Models;
+using DomainService.Repository.Interface;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 

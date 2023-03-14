@@ -1,9 +1,7 @@
-﻿using Anket.Common.Interface;
-using Anket.Models;
-using Anket.Repository.Interface;
-using Anket.ViewModels;
+﻿using DomainService.DtoModels;
+using DomainService.Models;
+using DomainService.Repository.Interface;
 using DSUContextDBService.Interfaces;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -53,12 +51,12 @@ namespace Anket.Controllers
             return Ok(FillingData(results));
         }
 
-        private List<ResultViewModel> FillingData(List<Result> results)
+        private List<ResultDto> FillingData(List<Result> results)
         {
-            List<ResultViewModel> resultViewModel = new();
+            List<ResultDto> resultViewModel = new();
             foreach (var result in results)
             {
-                resultViewModel.Add(new ResultViewModel
+                resultViewModel.Add(new ResultDto
                 {
                     Answer = result.Answer,
                     Question = result.Question,

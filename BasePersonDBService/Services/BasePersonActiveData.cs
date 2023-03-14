@@ -1,6 +1,6 @@
 ﻿using BasePersonDBService.DataContext;
 using BasePersonDBService.Interfaces;
-using Models;
+using BasePersonDBService.Models;
 
 namespace BasePersonDBService.Services
 {

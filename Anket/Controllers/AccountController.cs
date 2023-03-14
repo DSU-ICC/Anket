@@ -1,11 +1,7 @@
-﻿using Anket.DBService;
-using Anket.Models;
-using Anket.ViewModels.Account;
-using Microsoft.AspNetCore.Authentication.OAuth;
+﻿using DomainService.Models;
+using DomainService.DtoModels.Account;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using System.IdentityModel.Tokens.Jwt;
-using System.Security.Claims;
 
 namespace Anket.Controllers
 {

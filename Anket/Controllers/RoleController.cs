@@ -1,6 +1,4 @@
-﻿using Anket.Models;
-using Anket.ViewModels.Account;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 

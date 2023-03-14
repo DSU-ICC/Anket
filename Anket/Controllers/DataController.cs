@@ -1,13 +1,7 @@
-﻿using Anket.Common;
-using Anket.Common.Interface;
-using Anket.DBService;
-using Anket.Models;
-using Anket.ViewModels;
+﻿using DomainService.Models;
 using DSUContextDBService.Interfaces;
 using DSUContextDBService.Models;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using System.Linq;
 
 namespace Anket.Controllers
 {

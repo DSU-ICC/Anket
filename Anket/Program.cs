@@ -1,7 +1,6 @@
 using Anket.Common;
-using Anket.DBService;
-using Anket.Models;
-using Anket.Services;
+using DomainService.DBService;
+using DomainService.Models;
 using BasePersonDBService.DataContext;
 using DSUContextDBService.DataContext;
 using Microsoft.AspNetCore.Identity;

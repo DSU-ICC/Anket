@@ -9,6 +9,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BasePersonDBService", "Base
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DSUContextDBService", "DSUContextDBService\DSUContextDBService.csproj", "{EC657ED4-9820-4933-A7D1-3EFE1BBDF57B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DomainService", "DomainService\DomainService.csproj", "{40706A9E-EDB8-4C84-B97B-89B2C9B7E32F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure", "Infrastructure\Infrastructure.csproj", "{8E7D59BE-88BB-43B1-B93B-1D18F91D329F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +31,14 @@ Global
 		{EC657ED4-9820-4933-A7D1-3EFE1BBDF57B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EC657ED4-9820-4933-A7D1-3EFE1BBDF57B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EC657ED4-9820-4933-A7D1-3EFE1BBDF57B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{40706A9E-EDB8-4C84-B97B-89B2C9B7E32F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{40706A9E-EDB8-4C84-B97B-89B2C9B7E32F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{40706A9E-EDB8-4C84-B97B-89B2C9B7E32F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{40706A9E-EDB8-4C84-B97B-89B2C9B7E32F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8E7D59BE-88BB-43B1-B93B-1D18F91D329F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8E7D59BE-88BB-43B1-B93B-1D18F91D329F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8E7D59BE-88BB-43B1-B93B-1D18F91D329F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8E7D59BE-88BB-43B1-B93B-1D18F91D329F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

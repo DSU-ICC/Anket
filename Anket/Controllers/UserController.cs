@@ -1,5 +1,5 @@
-﻿using Anket.Models;
-using Anket.ViewModels.Account;
+﻿using DomainService.Models;
+using DomainService.DtoModels.Account;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;

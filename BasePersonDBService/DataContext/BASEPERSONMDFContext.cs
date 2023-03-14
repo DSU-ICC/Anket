@@ -1,5 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Models;
+﻿using BasePersonDBService.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace BasePersonDBService.DataContext
 {
