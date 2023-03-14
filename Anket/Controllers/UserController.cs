@@ -45,6 +45,13 @@ namespace EorDSU.Controllers
             {
                 Moderator user = new() { UserName = model.Login};
                 var result = await _userManager.CreateAsync(user, model.Password);
+
+                if (model.Role != null)
+                {
+                    List<string> roles = new() { model.Role };
+                    await _userManager.AddToRolesAsync(user, roles);
+                }
+
                 if (result.Succeeded)
                     return Ok();
             }
@@ -58,9 +65,26 @@ namespace EorDSU.Controllers
             if (ModelState.IsValid)
             {
                 Moderator user = await _userManager.FindByIdAsync(model.Id);
+                var _passwordHasher = HttpContext.RequestServices.GetService(typeof(IPasswordHasher<Moderator>)) as IPasswordHasher<Moderator>;
                 if (user != null)
                 {
                     user.UserName = model.Login;
+                    user.PasswordHash = _passwordHasher.HashPassword(user, model.Password);
+
+                    if (model.Role != null)
+                    {
+                        List<string> roles = new() { model.Role };
+                        // получем список ролей пользователя
+                        var userRoles = await _userManager.GetRolesAsync(user);
+                        // получаем список ролей, которые были добавлены
+                        var addedRoles = roles.Except(userRoles);
+                        // получаем роли, которые были удалены
+                        var removedRoles = userRoles.Except(roles);
+
+                        await _userManager.AddToRolesAsync(user, addedRoles);
+
+                        await _userManager.RemoveFromRolesAsync(user, removedRoles);
+                    }
 
                     var result = await _userManager.UpdateAsync(user);
                     if (result.Succeeded)

@@ -18,7 +18,18 @@ builder.Services.AddControllers().AddNewtonsoftJson(options =>
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.AddCors();
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("MyAllowCredentialsPolicy",
+        policy =>
+        {
+            policy.WithOrigins(builder.Configuration["LinkToFrontEnd"])
+                   .AllowAnyHeader()
+                   .AllowAnyMethod()
+                   .AllowCredentials();
+        });
+});
 
 builder.Services.AddDbContext<BASEPERSONMDFContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("BasePerson"), providerOptions => providerOptions.EnableRetryOnFailure()));
@@ -37,6 +48,16 @@ builder.Services.AddIdentity<Moderator, IdentityRole>(
                    opts.Password.RequireDigit = false;
                })
                .AddEntityFrameworkStores<ApplicationContext>();
+
+builder.Services.ConfigureApplicationCookie(options =>
+{
+    // Cookie settings
+    options.Cookie.HttpOnly = true;
+    options.Cookie.SameSite = SameSiteMode.None;
+
+    options.LoginPath = "/Account/Login";
+    options.SlidingExpiration = true;
+});
 
 builder.WebHost.ConfigureServices(configure => SentrySdk.Init(o =>
 {
@@ -69,6 +90,8 @@ using (var scope = app.Services.CreateScope())
     }
 }
 
+app.ConfigureExceptionHandler();
+
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
@@ -76,12 +99,9 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.ConfigureExceptionHandler();
+app.UseCors("MyAllowCredentialsPolicy");
 
-app.UseCors(builder => builder.AllowAnyOrigin()
-                              .AllowAnyHeader()
-                              .AllowAnyMethod());
-
+app.UseDefaultFiles();
 app.UseStaticFiles();
 
 app.UseHttpsRedirection();

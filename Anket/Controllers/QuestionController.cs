@@ -15,64 +15,43 @@ namespace Anket.Controllers
             _unitOfWork = unitOfWork;
         }
 
-        [Route("Get")]
+        [Route("GetQuestions")]
         [HttpGet]
-        public IActionResult Get()
+        public IActionResult GetQuestions()
         {
             return Ok(_unitOfWork.QuestionRepository.Get().ToListAsync());
         }
 
-        [Route("GetById")]
+        [Route("GetQuestionById")]
         [HttpGet]
-        public async Task<ActionResult<Question>> GetQuestion(int id)
+        public async Task<IActionResult> GetQuestionById(int id)
         {
-            var question = _unitOfWork.QuestionRepository.FindById(id);
+            var question = await _unitOfWork.QuestionRepository.FindById(id);
             if (question == null)
-            {
-                return NotFound();
-            }
-            return await question;
+                return BadRequest("Вопрос не найден");
+
+            return Ok(question);
         }
 
-        [Route("PutQuestion")]
-        [HttpPut]
-        public async Task<ActionResult<Question>> PutQuestion(int id, Question question)
+        [Route("CreateQuestion")]
+        [HttpPost]
+        public async Task<IActionResult> CreateQuestion(Question question)
         {
-            if ( id != question.Id)
-            {
-                return BadRequest();
-            }
-
-            try
-            {
-                await _unitOfWork.QuestionRepository.Create(question);
-            }
-            catch
-            {
-                return NoContent();
-            }
-
+            await _unitOfWork.QuestionRepository.Create(question);
             return Ok();
         }
 
-        [Route("PostQuestion")]
-        [HttpPost]
-        public async Task<ActionResult<Question>> PostQuestion(Question question)
+        [Route("EditQuestion")]
+        [HttpPut]
+        public async Task<IActionResult> EditQuestion(Question question)
         {
-            try
-            {
-                await _unitOfWork.QuestionRepository.Create(question);
-            }
-            catch
-            {
-                return BadRequest();
-            }
+            await _unitOfWork.QuestionRepository.Create(question);
             return Ok();
         }
 
         [Route("DeleteQuestion")]
         [HttpDelete]
-        public async Task<ActionResult<Question>> DeleteQuestion(int id)
+        public async Task<IActionResult> DeleteQuestion(int id)
         {
             await _unitOfWork.QuestionRepository.Remove(id);
             return Ok();

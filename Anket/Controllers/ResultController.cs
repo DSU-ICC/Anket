@@ -17,33 +17,33 @@ namespace Anket.Controllers
             _unitOfWork = unitOfWork;
         }
 
-        [Route("GetResult")]
+        [Route("GetResults")]
         [HttpGet]
-        public async Task<IActionResult> GetResult()
+        public async Task<IActionResult> GetResults()
         {
             var results = await _unitOfWork.ResultRepository.Get().ToListAsync();
             return Ok(FillingData(results));
         }
 
-        [Route("GetResultByFacultyId")]
+        [Route("GetResultsByFacultyId")]
         [HttpGet]
-        public async Task<IActionResult> GetResultByFacultyId(int facultyId)
+        public async Task<IActionResult> GetResultsByFacultyId(int facultyId)
         {
-            var results = await _unitOfWork.ResultRepository.Get().Where(x => x.Student.FacId == facultyId).ToListAsync();
+            var results = await _unitOfWork.ResultRepository.Get().Include(x => x.Student).Where(x => x.Student.FacId == facultyId).ToListAsync();
             return Ok(FillingData(results));
         }
 
-        [Route("GetResultByDepartmentId")]
+        [Route("GetResultsByDepartmentId")]
         [HttpGet]
-        public async Task<IActionResult> GetResultByDepartmentId(int departmentId)
+        public async Task<IActionResult> GetResultsByDepartmentId(int departmentId)
         {
-            var results = await _unitOfWork.ResultRepository.Get().Where(x => x.Student.DepartmentId == departmentId).ToListAsync();
+            var results = await _unitOfWork.ResultRepository.Get().Include(x => x.Student).Where(x => x.Student.DepartmentId == departmentId).ToListAsync();
             return Ok(FillingData(results));
         }
 
-        [Route("GetResultByTeacherId")]
+        [Route("GetResultsByTeacherId")]
         [HttpGet]
-        public async Task<IActionResult> GetResultByTeacherId(int teacherId)
+        public async Task<IActionResult> GetResultsByTeacherId(int teacherId)
         {
             var results = await _unitOfWork.ResultRepository.Get().Where(x => x.TeacherId == teacherId).ToListAsync();
             return Ok(FillingData(results));
@@ -63,6 +63,25 @@ namespace Anket.Controllers
                 });
             }
             return resultViewModel;
+        }
+
+        [Route("EndTesting")]
+        [HttpPost]
+        public async Task<IActionResult> EndTesting(List<Result> results)
+        {
+            foreach (var result in results)
+            {
+                await _unitOfWork.ResultRepository.Create(result);
+            }
+            return Ok();
+        }
+
+        [Route("EndQuestionTesting")]
+        [HttpPost]
+        public async Task<IActionResult> EndQuestionTesting(Result result)
+        {
+            await _unitOfWork.ResultRepository.Create(result);
+            return Ok();
         }
     }
 }

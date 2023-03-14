@@ -2,7 +2,6 @@
 using Anket.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace Anket.Controllers
 {
@@ -16,66 +15,45 @@ namespace Anket.Controllers
             _unitOfWork = unitOfWork;
         }
 
-        [Route("Get")]
+        [Route("GetAnswers")]
         [HttpGet]
-        public IActionResult GetAnswers()
+        public async Task<IActionResult> GetAnswers()
         {
-            return Ok(_unitOfWork.AnswerRepository.Get().ToListAsync());
+            return Ok(await _unitOfWork.AnswerRepository.Get().ToListAsync());
         }
 
-        [Route("GetById")]
+        [Route("GetAnswerById")]
         [HttpGet]
-        public async Task<ActionResult<Answer>> GetAnswer(int id)
+        public async Task<IActionResult> GetAnswerById(int id)
         {
-            var answer = _unitOfWork.AnswerRepository.FindById(id);
+            var answer = await _unitOfWork.AnswerRepository.FindById(id);
             if (answer == null)
-            {
                 return NotFound();
-            }
-            return await answer;
+
+            return Ok(answer);
         }
 
-        [Route("PutAnswer")]
-        [HttpPut]
-        public async Task<ActionResult<Answer>> PutAnswer(int id, Answer answer)
-        {
-            if (id != answer.Id)
-            {
-                return BadRequest();
-            }
-
-            try
-            {
-                await _unitOfWork.AnswerRepository.Create(answer);
-            }
-            catch
-            {
-                return NoContent();
-            }
-
-            return Ok();
-        }
-
-        [Route("PostAnswer")]
+        [Route("CreateAnswer")]
         [HttpPost]
-        public async Task<ActionResult<Answer>> PostAnswer(Answer answer)
+        public async Task<ActionResult<Answer>> CreateAnswer(Answer answer)
         {
-            try
-            {
-                await _unitOfWork.AnswerRepository.Create(answer);
-            }
-            catch
-            {
-                return BadRequest();
-            }
+            await _unitOfWork.AnswerRepository.Create(answer);
             return Ok();
         }
 
-        [Route("DeleteQuestion")]
-        [HttpDelete]
-        public async Task<ActionResult<Question>> DeleteQuestion(int id)
+        [Route("EditAnswer")]
+        [HttpPut]
+        public async Task<ActionResult<Answer>> EditAnswer(Answer answer)
         {
-            await _unitOfWork.QuestionRepository.Remove(id);
+            await _unitOfWork.AnswerRepository.Create(answer);
+            return Ok();
+        }
+
+        [Route("DeleteAnswer")]
+        [HttpDelete]
+        public async Task<IActionResult> DeleteAnswer(int id)
+        {
+            await _unitOfWork.AnswerRepository.Remove(id);
             return Ok();
         }
     }

@@ -5,9 +5,9 @@ VisualStudioVersion = 17.4.33122.133
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Anket", "Anket\Anket.csproj", "{F183688C-20FD-40C0-89EB-A86A08297E81}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BasePersonDBService", "BasePersonDBService\BasePersonDBService.csproj", "{2FE57016-E0FC-4C10-8A45-33F6705CA490}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BasePersonDBService", "BasePersonDBService\BasePersonDBService.csproj", "{2FE57016-E0FC-4C10-8A45-33F6705CA490}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DSUContextDBService", "DSUContextDBService\DSUContextDBService.csproj", "{EC657ED4-9820-4933-A7D1-3EFE1BBDF57B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DSUContextDBService", "DSUContextDBService\DSUContextDBService.csproj", "{EC657ED4-9820-4933-A7D1-3EFE1BBDF57B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

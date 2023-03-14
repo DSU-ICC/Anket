@@ -9,8 +9,6 @@ namespace DSUContextDBService.Interfaces
         public IQueryable<CaseSDepartment> GetCaseSDepartments();
         public CaseSDepartment GetCaseSDepartmentById(int id);
         public IQueryable<CaseSDepartment> GetCaseSDepartmentByFacultyId(int? id);
-        public IQueryable<CaseSSpecialization> GetCaseSSpecializations();
-        public CaseSSpecialization GetCaseSSpecializationById(int id);
         public IQueryable<CaseSTeacher> GetCaseSTeachers();
         public CaseSTeacher GetCaseSTeacherById(int id);
         public IQueryable<CaseCStatus> GetCaseCStatus();
@@ -19,13 +17,8 @@ namespace DSUContextDBService.Interfaces
         public CaseCEdue GetCaseCEdueById(int id);
         public IQueryable<CaseCEdukind> GetCaseCEdukinds();
         public CaseCEdukind GetCaseCEdukindById(int id);
-        public IQueryable<CaseCPlat> GetCaseCPlats();
-        public CaseCPlat GetCaseCPlatById(int id);
         public IQueryable<CaseUkoExam> GetCaseUkoExams();
-        public CaseUkoExam GetCaseUkoExamById(int id);
         public IQueryable<CaseUkoModule> GetCaseUkoModules();
-        public CaseUkoModule GetCaseUkoModuleById(int id);
         public IQueryable<CaseUkoZachet> GetCaseUkoZachets();
-        public CaseUkoZachet GetCaseUkoZachetById(int id);
     }
 }

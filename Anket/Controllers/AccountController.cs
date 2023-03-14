@@ -14,10 +14,11 @@ namespace Anket.Controllers
     public class AccountController : Controller
     {
         private readonly SignInManager<Moderator> _signInManager;
-
-        public AccountController(SignInManager<Moderator> signInManager)
+        private readonly UserManager<Moderator> _userManager;
+        public AccountController(SignInManager<Moderator> signInManager, UserManager<Moderator> userManager)
         {
             _signInManager = signInManager;
+            _userManager = userManager;
         }
 
         [Route("Logout")]
@@ -37,8 +38,9 @@ namespace Anket.Controllers
             {
                 var result =
                     await _signInManager.PasswordSignInAsync(model.Login, model.Password, false, false);
-                if (result.Succeeded)
-                    return Ok(result);
+                var user = _userManager.Users.FirstOrDefault(x => x.UserName == model.Login);
+                if (result.Succeeded && user != null)
+                    return Ok(user.Id);
                 else
                     ModelState.AddModelError("", "Неправильный логин и (или) пароль");
             }

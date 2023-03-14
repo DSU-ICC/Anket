@@ -20,7 +20,7 @@ namespace Anket.Controllers
         {
             _unitOfWork = unitOfWork;
         }
-        
+
         [Route("GetStudents")]
         [HttpGet]
         public IActionResult GetStudents(int departmentId, int course)
@@ -132,45 +132,52 @@ namespace Anket.Controllers
                     Id = item.SId,
                     Name = item.Predmet,
                 };
+                Teacher teacer1 = new();
                 Teacher teacer2 = new();
                 Teacher teacer3 = new();
                 Teacher teacer4 = new();
                 Teacher teacer5 = new();
-                Teacher teacer1 = new()
+
+                if (!discipline.Teachers.Any(c => c.Id == teacer1.Id))
                 {
-                    Id = item.TeachId1,
-                    Fio = item.Prepod?.Split(",")[0]
-                };
-                if (item.TeachId2 != 0)
-                {
-                    teacer2.Id = item.TeachId2;
-                    teacer2.Fio = item.Prepod?.Split(",")[1];
+                    discipline.Teachers.Add(new Teacher
+                    {
+                        Id = item.TeachId1,
+                        Fio = item.Prepod?.Split(",")[0]
+                    });
                 }
-                if (item.TeachId3 != 0)
-                {
-                    teacer3.Id = item.TeachId3;
-                    teacer3.Fio = item.Prepod?.Split(",")[2];
-                }
-                if (item.TeachId4 != 0)
-                {
-                    teacer4.Id = item.TeachId4;
-                    teacer4.Fio = item.Prepod?.Split(",")[3];
-                }
-                if (item.TeachId5 != 0)
-                {
-                    teacer5.Id = item.TeachId5;
-                    teacer5.Fio = item.Prepod?.Split(",")[4];
-                }
-                if (item.TeachId1 != 0 && !discipline.Teachers.Any(c => c.Id == teacer1.Id))
-                    discipline.Teachers.Add(teacer1);
                 if (item.TeachId2 != 0 && !discipline.Teachers.Any(c => c.Id == teacer2.Id))
-                    discipline.Teachers.Add(teacer2);
+                {
+                    discipline.Teachers.Add(new Teacher
+                    {
+                        Id = item.TeachId2,
+                        Fio = item.Prepod?.Split(",")[1]
+                    });
+                }
                 if (item.TeachId3 != 0 && !discipline.Teachers.Any(c => c.Id == teacer3.Id))
-                    discipline.Teachers.Add(teacer3);
+                {
+                    discipline.Teachers.Add(new Teacher
+                    {
+                        Id = item.TeachId3,
+                        Fio = item.Prepod?.Split(",")[2]
+                    });
+                }
                 if (item.TeachId4 != 0 && !discipline.Teachers.Any(c => c.Id == teacer4.Id))
-                    discipline.Teachers.Add(teacer4);
+                {
+                    discipline.Teachers.Add(new Teacher
+                    {
+                        Id = item.TeachId4,
+                        Fio = item.Prepod?.Split(",")[3]
+                    });
+                }
                 if (item.TeachId5 != 0 && !discipline.Teachers.Any(c => c.Id == teacer5.Id))
-                    discipline.Teachers.Add(teacer5);
+                {
+                    discipline.Teachers.Add(new Teacher
+                    {
+                        Id = item.TeachId5,
+                        Fio = item.Prepod?.Split(",")[4]
+                    });
+                }
 
                 if (!disciplines.Any(x => x.Id == discipline.Id))
                     disciplines.Add(discipline);

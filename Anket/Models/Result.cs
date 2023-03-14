@@ -1,19 +1,19 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace Anket.Models
+﻿namespace Anket.Models
 {
     public class Result
     {
-        [Key]
         public int Id { get; set; }
-        public int? StudentId { get; set; }
-        public Student? Student { get; set; }
-        public int? TeacherId { get; set; }
-        public Teacher? Teacher { get; set; }
-        public int? QuestionId { get; set; }
-        public Question? Question { get; set; }
-        public int? AnswerId { get; set; }
-        public Answer? Answer { get; set; }
-        public DateTime CreaeteDate { get; set; }
+        public int StudentId { get; set; }
+        public Student Student { get; set; } = null!;
+        public int TeacherId { get; set; }
+        public Teacher Teacher { get; set; } = null!;
+        public int DisciplineId { get; set; }
+        public Discipline Discipline { get; set; } = null!;
+        public int QuestionId { get; set; }
+        public Question Question { get; set; } = null!;
+        public int AnswerId { get; set; }
+        public Answer Answer { get; set; } = null!;
+        public DateTime CreateDate { get; set; } = DateTime.Now;
+        public string ModeratorId { get; set; } = null!;
     }
 }

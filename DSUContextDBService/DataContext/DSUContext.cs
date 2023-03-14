@@ -16,10 +16,8 @@ namespace DSUContextDBService.DataContext
 
         public virtual DbSet<CaseCEdue> CaseCEdues { get; set; } = null!;
         public virtual DbSet<CaseCEdukind> CaseCEdukinds { get; set; } = null!;
-        public virtual DbSet<CaseCPlat> CaseCPlats { get; set; } = null!;
         public virtual DbSet<CaseCStatus> CaseCStatuses { get; set; } = null!;
         public virtual DbSet<CaseSDepartment> CaseSDepartments { get; set; } = null!;
-        public virtual DbSet<CaseSSpecialization> CaseSSpecializations { get; set; } = null!;
         public virtual DbSet<CaseSStudent> CaseSStudents { get; set; } = null!;
         public virtual DbSet<CaseSTeacher> CaseSTeachers { get; set; } = null!;
         public virtual DbSet<CaseUkoExam> CaseUkoExams { get; set; } = null!;
@@ -61,20 +59,6 @@ namespace DSUContextDBService.DataContext
                 entity.Property(e => e.EdukindId).HasColumnName("EDUKIND_ID");
 
                 entity.Property(e => e.Yearedu).HasColumnName("YEAREDU");
-            });
-
-            modelBuilder.Entity<CaseCPlat>(entity =>
-            {
-                entity.HasNoKey();
-
-                entity.ToView("CASE_C_PLAT");
-
-                entity.Property(e => e.PlatId).HasColumnName("PLAT_ID");
-
-                entity.Property(e => e.PlatName)
-                    .HasMaxLength(15)
-                    .IsUnicode(false)
-                    .HasColumnName("PLAT_NAME");
             });
 
             modelBuilder.Entity<CaseCStatus>(entity =>
@@ -130,33 +114,6 @@ namespace DSUContextDBService.DataContext
                     .HasColumnName("QUALIFICATION");
             });
             
-            modelBuilder.Entity<CaseSSpecialization>(entity =>
-            {
-                entity.HasNoKey();
-
-                entity.ToView("CASE_S_SPECIALIZATION");
-
-                entity.Property(e => e.Code)
-                    .HasMaxLength(6)
-                    .IsUnicode(false)
-                    .HasColumnName("CODE");
-
-                entity.Property(e => e.Deleted).HasColumnName("DELETED");
-
-                entity.Property(e => e.DeptId).HasColumnName("DEPT_ID");
-
-                entity.Property(e => e.FilId).HasColumnName("FIL_ID");
-
-                entity.Property(e => e.SpecId)
-                    .ValueGeneratedOnAdd()
-                    .HasColumnName("SPEC_ID");
-
-                entity.Property(e => e.SpecName)
-                    .HasMaxLength(150)
-                    .IsUnicode(false)
-                    .HasColumnName("SPEC_NAME");
-            });
-
             modelBuilder.Entity<CaseSStudent>(entity =>
             {
                 entity.HasNoKey();

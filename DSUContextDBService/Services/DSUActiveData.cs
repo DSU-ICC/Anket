@@ -35,16 +35,6 @@ namespace DSUContextDBService.Services
             return _dSUContext.CaseCEdukinds;
         }
 
-        public CaseCPlat GetCaseCPlatById(int id)
-        {
-            return _dSUContext.CaseCPlats.FirstOrDefault(x => x.PlatId == id);
-        }
-
-        public IQueryable<CaseCPlat> GetCaseCPlats()
-        {
-            return _dSUContext.CaseCPlats;
-        }
-
         public CaseCStatus GetCaseCStatusById(int id)
         {
             return _dSUContext.CaseCStatuses.FirstOrDefault(x => x.Id == id);
@@ -70,16 +60,6 @@ namespace DSUContextDBService.Services
             return _dSUContext.CaseSDepartments.Where(x => x.Deleted == false);
         }
 
-        public CaseSSpecialization GetCaseSSpecializationById(int id)
-        {
-            return _dSUContext.CaseSSpecializations.FirstOrDefault(x => x.SpecId == id);
-        }
-
-        public IQueryable<CaseSSpecialization> GetCaseSSpecializations()
-        {
-            return _dSUContext.CaseSSpecializations.Where(x => x.Deleted == false);
-        }
-
         public CaseSStudent GetCaseSStudentById(int id)
         {
             return _dSUContext.CaseSStudents.FirstOrDefault(x => x.Id == id);
@@ -100,34 +80,19 @@ namespace DSUContextDBService.Services
             return _dSUContext.CaseSTeachers.Where(x => x.TeachId > 0);
         }
 
-        public CaseUkoExam GetCaseUkoExamById(int id)
-        {
-            return _dSUContext.CaseUkoExams.FirstOrDefault(x => x.Id == id);
-        }
-
         public IQueryable<CaseUkoExam> GetCaseUkoExams()
         {
-            return _dSUContext.CaseUkoExams.Where(x => x.Veddate > beginDate && x.Veddate < endDate && x.StudentStatus != 1);
-        }
-
-        public CaseUkoModule GetCaseUkoModuleById(int id)
-        {
-            return _dSUContext.CaseUkoModules.FirstOrDefault(x => x.Id == id);
+            return _dSUContext.CaseUkoExams.Where(x => x.Veddate > beginDate && x.Veddate < endDate);
         }
 
         public IQueryable<CaseUkoModule> GetCaseUkoModules()
         {
-            return _dSUContext.CaseUkoModules.Where(x => x.Veddate > beginDate && x.Veddate < endDate && x.StudentStatus != 1);
-        }
-
-        public CaseUkoZachet GetCaseUkoZachetById(int id)
-        {
-            return _dSUContext.CaseUkoZachets.FirstOrDefault(x => x.Id == id);
+            return _dSUContext.CaseUkoModules.Where(x => x.Veddate > beginDate && x.Veddate < endDate);
         }
 
         public IQueryable<CaseUkoZachet> GetCaseUkoZachets()
         {           
-            return _dSUContext.CaseUkoZachets.Where(x => x.Veddate > beginDate && x.Veddate < endDate && x.StudentStatus != 1);
+            return _dSUContext.CaseUkoZachets.Where(x => x.Veddate > beginDate && x.Veddate < endDate);
         }
     }
 }

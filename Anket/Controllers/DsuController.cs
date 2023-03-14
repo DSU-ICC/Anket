@@ -19,7 +19,6 @@ namespace Anket.Controllers
         public async Task<IActionResult> GetFaculties()
         {
             var faculties = await _unitOfWork.BasePersonActiveData.GetPersDivisions().ToListAsync();
-
             return Ok(faculties);
         }
 
@@ -28,7 +27,6 @@ namespace Anket.Controllers
         public async Task<IActionResult> GetDepartments()
         {
             var departments = await _unitOfWork.DSUActiveData.GetCaseSDepartments().ToListAsync();
-
             return Ok(departments);
         }
 
@@ -37,7 +35,6 @@ namespace Anket.Controllers
         public async Task<IActionResult> GetDepartmentsByFacultyId(int facultyId)
         {
             var departments = await _unitOfWork.DSUActiveData.GetCaseSDepartmentByFacultyId(facultyId).ToListAsync();
-
             return Ok(departments);
         }
     }

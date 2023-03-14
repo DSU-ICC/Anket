@@ -9,6 +9,5 @@ namespace Anket.ViewModels
         public Answer? Answer { get; set; }
         public CaseSStudent? CaseSStudent { get; set; }
         public CaseSTeacher? CaseSTeacher { get; set; }
-
     }
 }
