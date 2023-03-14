@@ -1,6 +1,8 @@
 ﻿using Anket.Common.Interface;
 using Anket.Models;
+using Anket.Repository.Interface;
 using Anket.ViewModels;
+using DSUContextDBService.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -11,17 +13,19 @@ namespace Anket.Controllers
     [Route("[controller]")]
     public class ResultController : Controller
     {
-        private readonly IUnitOfWork _unitOfWork;
-        public ResultController(IUnitOfWork unitOfWork)
+        private readonly IResultRepository _resultRepository;
+        private readonly IDSUActiveData _dSUActiveData;
+        public ResultController(IResultRepository resultRepository, IDSUActiveData dSUActiveData)
         {
-            _unitOfWork = unitOfWork;
+            _resultRepository = resultRepository;
+            _dSUActiveData = dSUActiveData;
         }
 
         [Route("GetResults")]
         [HttpGet]
         public async Task<IActionResult> GetResults()
         {
-            var results = await _unitOfWork.ResultRepository.Get().ToListAsync();
+            var results = await _resultRepository.Get().ToListAsync();
             return Ok(FillingData(results));
         }
 
@@ -29,7 +33,7 @@ namespace Anket.Controllers
         [HttpGet]
         public async Task<IActionResult> GetResultsByFacultyId(int facultyId)
         {
-            var results = await _unitOfWork.ResultRepository.Get().Include(x => x.Student).Where(x => x.Student.FacId == facultyId).ToListAsync();
+            var results = await _resultRepository.Get().Include(x => x.Student).Where(x => x.Student.FacId == facultyId).ToListAsync();
             return Ok(FillingData(results));
         }
 
@@ -37,7 +41,7 @@ namespace Anket.Controllers
         [HttpGet]
         public async Task<IActionResult> GetResultsByDepartmentId(int departmentId)
         {
-            var results = await _unitOfWork.ResultRepository.Get().Include(x => x.Student).Where(x => x.Student.DepartmentId == departmentId).ToListAsync();
+            var results = await _resultRepository.Get().Include(x => x.Student).Where(x => x.Student.DepartmentId == departmentId).ToListAsync();
             return Ok(FillingData(results));
         }
 
@@ -45,7 +49,7 @@ namespace Anket.Controllers
         [HttpGet]
         public async Task<IActionResult> GetResultsByTeacherId(int teacherId)
         {
-            var results = await _unitOfWork.ResultRepository.Get().Where(x => x.TeacherId == teacherId).ToListAsync();
+            var results = await _resultRepository.Get().Where(x => x.TeacherId == teacherId).ToListAsync();
             return Ok(FillingData(results));
         }
 
@@ -58,8 +62,8 @@ namespace Anket.Controllers
                 {
                     Answer = result.Answer,
                     Question = result.Question,
-                    CaseSStudent = _unitOfWork.DSUActiveData.GetCaseSStudentById((int)result.StudentId),
-                    CaseSTeacher = _unitOfWork.DSUActiveData.GetCaseSTeacherById((int)result.TeacherId)
+                    CaseSStudent = _dSUActiveData.GetCaseSStudentById((int)result.StudentId),
+                    CaseSTeacher = _dSUActiveData.GetCaseSTeacherById((int)result.TeacherId)
                 });
             }
             return resultViewModel;
@@ -71,7 +75,7 @@ namespace Anket.Controllers
         {
             foreach (var result in results)
             {
-                await _unitOfWork.ResultRepository.Create(result);
+                await _resultRepository.Create(result);
             }
             return Ok();
         }
@@ -80,7 +84,7 @@ namespace Anket.Controllers
         [HttpPost]
         public async Task<IActionResult> EndQuestionTesting(Result result)
         {
-            await _unitOfWork.ResultRepository.Create(result);
+            await _resultRepository.Create(result);
             return Ok();
         }
     }

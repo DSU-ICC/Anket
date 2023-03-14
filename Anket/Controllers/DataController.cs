@@ -3,6 +3,7 @@ using Anket.Common.Interface;
 using Anket.DBService;
 using Anket.Models;
 using Anket.ViewModels;
+using DSUContextDBService.Interfaces;
 using DSUContextDBService.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -14,11 +15,10 @@ namespace Anket.Controllers
     [Route("[controller]")]
     public class DataController : Controller
     {
-        private readonly IUnitOfWork _unitOfWork;
-
-        public DataController(IUnitOfWork unitOfWork)
+        private readonly IDSUActiveData _dSUActiveData;
+        public DataController(IDSUActiveData dSUActiveData)
         {
-            _unitOfWork = unitOfWork;
+            _dSUActiveData = dSUActiveData;
         }
 
         [Route("GetStudents")]
@@ -26,8 +26,8 @@ namespace Anket.Controllers
         public IActionResult GetStudents(int departmentId, int course)
         {
             List<Student> students = new();
-            var zachets = _unitOfWork.DSUActiveData.GetCaseUkoZachets().Where(x => x.DeptId == departmentId && x.Course == course).AsEnumerable();
-            var exam = _unitOfWork.DSUActiveData.GetCaseUkoExams().Where(x => x.DeptId == departmentId && x.Course == course).AsEnumerable();
+            var zachets = _dSUActiveData.GetCaseUkoZachets().Where(x => x.DeptId == departmentId && x.Course == course).AsEnumerable();
+            var exam = _dSUActiveData.GetCaseUkoExams().Where(x => x.DeptId == departmentId && x.Course == course).AsEnumerable();
 
             var examUnionZachets = exam.Union(zachets.Select(x => new CaseUkoExam
             {
@@ -50,7 +50,7 @@ namespace Anket.Controllers
                 TeachId5 = x.TeachId5,
                 StudentStatus = x.StudentStatus,
                 Veddate = x.Veddate
-            })).Join(_unitOfWork.DSUActiveData.GetCaseSStudents(), x => x.Id, c => c.Id, (x, c) => new
+            })).Join(_dSUActiveData.GetCaseSStudents(), x => x.Id, c => c.Id, (x, c) => new
             {
                 x.Id,
                 x.FacId,
@@ -97,8 +97,8 @@ namespace Anket.Controllers
         [HttpGet]
         public IActionResult GetDisciplineAndTeacherByStudentId(int studentId)
         {
-            var zachets = _unitOfWork.DSUActiveData.GetCaseUkoZachets().Where(x => x.Id == studentId).AsEnumerable();
-            var exam = _unitOfWork.DSUActiveData.GetCaseUkoExams().Where(x => x.Id == studentId).AsEnumerable();
+            var zachets = _dSUActiveData.GetCaseUkoZachets().Where(x => x.Id == studentId).AsEnumerable();
+            var exam = _dSUActiveData.GetCaseUkoExams().Where(x => x.Id == studentId).AsEnumerable();
 
             var examUnionZachets = exam.Union(zachets.Select(x => new CaseUkoExam
             {

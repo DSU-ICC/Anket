@@ -12,7 +12,6 @@ namespace EorDSU.Controllers
     public class UserController : Controller
     {
         private readonly UserManager<Moderator> _userManager;
-
         public UserController(UserManager<Moderator> userManager)
         {
             _userManager = userManager;

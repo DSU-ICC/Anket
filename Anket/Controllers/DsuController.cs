@@ -1,4 +1,4 @@
-﻿using Anket.Common.Interface;
+﻿using DSUContextDBService.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -8,25 +8,17 @@ namespace Anket.Controllers
     [Route("[controller]")]
     public class DsuController : Controller
     {
-        private readonly IUnitOfWork _unitOfWork;
-        public DsuController(IUnitOfWork unitOfWork)
+        private readonly IDSUActiveData _dSUActiveData;
+        public DsuController(IDSUActiveData dSUActiveData)
         {
-            _unitOfWork = unitOfWork;
-        }
-
-        [Route("GetFaculties")]
-        [HttpGet]
-        public async Task<IActionResult> GetFaculties()
-        {
-            var faculties = await _unitOfWork.BasePersonActiveData.GetPersDivisions().ToListAsync();
-            return Ok(faculties);
+            _dSUActiveData = dSUActiveData;
         }
 
         [Route("GetDepartments")]
         [HttpGet]
         public async Task<IActionResult> GetDepartments()
         {
-            var departments = await _unitOfWork.DSUActiveData.GetCaseSDepartments().ToListAsync();
+            var departments = await _dSUActiveData.GetCaseSDepartments().ToListAsync();
             return Ok(departments);
         }
 
@@ -34,7 +26,7 @@ namespace Anket.Controllers
         [HttpGet]
         public async Task<IActionResult> GetDepartmentsByFacultyId(int facultyId)
         {
-            var departments = await _unitOfWork.DSUActiveData.GetCaseSDepartmentByFacultyId(facultyId).ToListAsync();
+            var departments = await _dSUActiveData.GetCaseSDepartmentByFacultyId(facultyId).ToListAsync();
             return Ok(departments);
         }
     }

@@ -1,5 +1,5 @@
-﻿using Anket.Common.Interface;
-using Anket.Models;
+﻿using Anket.Models;
+using Anket.Repository.Interface;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -9,24 +9,24 @@ namespace Anket.Controllers
     [Route("[controller]")]
     public class QuestionController : Controller
     {
-        private readonly IUnitOfWork _unitOfWork;
-        public QuestionController(IUnitOfWork unitOfWork)
+        private readonly IQuestionRepository _questionRepository;
+        public QuestionController(IQuestionRepository questionRepository)
         {
-            _unitOfWork = unitOfWork;
+            _questionRepository = questionRepository;
         }
 
         [Route("GetQuestions")]
         [HttpGet]
         public IActionResult GetQuestions()
         {
-            return Ok(_unitOfWork.QuestionRepository.Get().ToListAsync());
+            return Ok(_questionRepository.Get().ToListAsync());
         }
 
         [Route("GetQuestionById")]
         [HttpGet]
         public async Task<IActionResult> GetQuestionById(int id)
         {
-            var question = await _unitOfWork.QuestionRepository.FindById(id);
+            var question = await _questionRepository.FindById(id);
             if (question == null)
                 return BadRequest("Вопрос не найден");
 
@@ -37,7 +37,7 @@ namespace Anket.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateQuestion(Question question)
         {
-            await _unitOfWork.QuestionRepository.Create(question);
+            await _questionRepository.Create(question);
             return Ok();
         }
 
@@ -45,7 +45,7 @@ namespace Anket.Controllers
         [HttpPut]
         public async Task<IActionResult> EditQuestion(Question question)
         {
-            await _unitOfWork.QuestionRepository.Create(question);
+            await _questionRepository.Create(question);
             return Ok();
         }
 
@@ -53,7 +53,7 @@ namespace Anket.Controllers
         [HttpDelete]
         public async Task<IActionResult> DeleteQuestion(int id)
         {
-            await _unitOfWork.QuestionRepository.Remove(id);
+            await _questionRepository.Remove(id);
             return Ok();
         }
     }
