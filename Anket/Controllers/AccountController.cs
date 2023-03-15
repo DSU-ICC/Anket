@@ -34,7 +34,7 @@ namespace Anket.Controllers
             {
                 var result =
                     await _signInManager.PasswordSignInAsync(model.Login, model.Password, false, false);
-                var user = _userManager.Users.FirstOrDefault(x => x.UserName == model.Login);
+                Moderator? user = _userManager.Users.FirstOrDefault(x => x.UserName == model.Login);
                 if (result.Succeeded && user != null)
                     return Ok(user.Id);
                 else
