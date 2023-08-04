@@ -362,3 +362,5 @@ MigrationBackup/
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
 /Infrastructure/LogFile
+/Anket/appsettings.json
+/Anket/appsettings.Development.json
