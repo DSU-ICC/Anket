@@ -2,7 +2,7 @@
 
 namespace DomainService.DtoModels.Account
 {
-    public class RegisterViewModel
+    public class LoginDto
     {
         [Required]
         [Display(Name = "Логин")]
@@ -12,7 +12,5 @@ namespace DomainService.DtoModels.Account
         [DataType(DataType.Password)]
         [Display(Name = "Пароль")]
         public string Password { get; set; } = null!;
-        [Display(Name = "Роль")]
-        public string? Role { get; set; }
     }
 }

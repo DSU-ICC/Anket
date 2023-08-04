@@ -1,10 +1,12 @@
 ﻿using DomainService.Models;
 using DomainService.Repository.Interface;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace Anket.Controllers
 {
+    //[Authorize]
     [ApiController]
     [Route("[controller]")]
     public class QuestionController : Controller
@@ -24,9 +26,9 @@ namespace Anket.Controllers
 
         [Route("GetQuestionById")]
         [HttpGet]
-        public async Task<IActionResult> GetQuestionById(int id)
+        public IActionResult GetQuestionById(int id)
         {
-            var question = await _questionRepository.FindById(id);
+            var question = _questionRepository.GetWithIncludeById(x => x.Id == id, x => x.ListAnswer);
             if (question == null)
                 return BadRequest("Вопрос не найден");
 
@@ -45,7 +47,7 @@ namespace Anket.Controllers
         [HttpPut]
         public async Task<IActionResult> EditQuestion(Question question)
         {
-            await _questionRepository.Create(question);
+            await _questionRepository.Update(question);
             return Ok();
         }
 

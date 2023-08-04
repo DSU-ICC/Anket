@@ -1,6 +1,6 @@
-﻿namespace DomainService.Models
+﻿namespace DomainService.DtoModels
 {
-    public class Student
+    public class StudentDto
     {
         public int Id { get; set; }
         public string? Fio { get; set; }

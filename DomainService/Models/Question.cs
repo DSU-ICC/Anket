@@ -1,4 +1,6 @@
-﻿namespace DomainService.Models
+﻿using DomainService.DtoModels;
+
+namespace DomainService.Models
 {
     public class Question
     {
@@ -7,6 +9,6 @@
         public QuestionType Type { get; set; }
         public int? Number { get; set; }
         public DateTime CreateDate { get; set; } = DateTime.Now;
-        public List<Answer> ListAnswer { get; set; } = new List<Answer>();
+        public List<Answer>? ListAnswer { get; set; } = new List<Answer>();
     }
 }

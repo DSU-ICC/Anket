@@ -1,8 +1,9 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using DomainService.Models;
+using System.ComponentModel.DataAnnotations;
 
 namespace DomainService.DtoModels.Account
 {
-    public class LoginViewModel
+    public class RegistrationDto
     {
         [Required]
         [Display(Name = "Логин")]
@@ -12,5 +13,11 @@ namespace DomainService.DtoModels.Account
         [DataType(DataType.Password)]
         [Display(Name = "Пароль")]
         public string Password { get; set; } = null!;
+
+        [Display(Name = "Роль")]
+        public Role? Role { get; set; }
+
+        [Display(Name = "Id Роли")]
+        public string? RoleId { get; set; }
     }
 }

@@ -1,7 +1,11 @@
 ﻿using DomainService.Models;
 using DomainService.DtoModels.Account;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Anket.Common;
+using Infrastructure.Repository.Interface;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using Microsoft.EntityFrameworkCore;
 
 namespace Anket.Controllers
 {
@@ -9,36 +13,49 @@ namespace Anket.Controllers
     [Route("[controller]")]
     public class AccountController : Controller
     {
-        private readonly SignInManager<Moderator> _signInManager;
-        private readonly UserManager<Moderator> _userManager;
-        public AccountController(SignInManager<Moderator> signInManager, UserManager<Moderator> userManager)
+        private readonly AuthOptions _authOptions;
+        private readonly IEmployeeRepository _employeeRepository;
+
+        public AccountController(IEmployeeRepository employeeRepository, AuthOptions authOptions)
         {
-            _signInManager = signInManager;
-            _userManager = userManager;
+            _employeeRepository = employeeRepository;
+            _authOptions = authOptions;
         }
 
         [Route("Logout")]
         [HttpGet]
-        public async Task<IActionResult> Logout()
+        public IActionResult Logout()
         {
-            // удаляем аутентификационные куки
-            await _signInManager.SignOutAsync();
+            HttpContext.Session.Clear();
             return Ok();
         }
 
         [Route("Login")]
         [HttpPost]
-        public async Task<IActionResult> Login(LoginViewModel model)
+        public IActionResult Login(LoginDto loginData)
         {
-            if (ModelState.IsValid)
+            Employee? employee = _employeeRepository.Get().Include(x => x.Role).FirstOrDefault(p => p.Name == loginData.Login && p.Password == loginData.Password);
+            if (employee != null)
             {
-                var result =
-                    await _signInManager.PasswordSignInAsync(model.Login, model.Password, false, false);
-                Moderator? user = _userManager.Users.FirstOrDefault(x => x.UserName == model.Login);
-                if (result.Succeeded && user != null)
-                    return Ok(user.Id);
-                else
-                    ModelState.AddModelError("", "Неправильный логин и (или) пароль");
+                var claims = new List<Claim>
+                {
+                    new Claim(ClaimsIdentity.DefaultNameClaimType, employee.Name),
+                    new Claim(ClaimsIdentity.DefaultRoleClaimType, employee.Role.Name)
+                };
+                ClaimsIdentity claimsIdentity = new(claims, "Token", ClaimsIdentity.DefaultNameClaimType, ClaimsIdentity.DefaultRoleClaimType);
+                if (claimsIdentity == null)
+                    return BadRequest(new { errorText = "Invalid username or password." });
+
+                // создаем JWT-токен
+                var jwt = _authOptions.GetAuthData(claimsIdentity.Claims);
+                var encodedJwt = new JwtSecurityTokenHandler().WriteToken(jwt);
+
+                var response = new
+                {
+                    access_token = encodedJwt,
+                    employee = employee
+                };
+                return Ok(response);
             }
             return BadRequest();
         }

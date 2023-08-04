@@ -1,10 +1,12 @@
 ﻿using DomainService.Models;
 using DomainService.Repository.Interface;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace Anket.Controllers
 {
+    //[Authorize]
     [ApiController]
     [Route("[controller]")]
     public class AnswerController : Controller
@@ -45,7 +47,7 @@ namespace Anket.Controllers
         [HttpPut]
         public async Task<ActionResult<Answer>> EditAnswer(Answer answer)
         {
-            await _answerRepository.Create(answer);
+            await _answerRepository.Update(answer);
             return Ok();
         }
 

@@ -1,25 +1,23 @@
-﻿using DomainService.Models;
+﻿using DomainService.DtoModels;
+using DSUContextDBService.DataContext;
 using DSUContextDBService.Interfaces;
 using DSUContextDBService.Models;
-using Microsoft.AspNetCore.Mvc;
+using DSUContextDBService.Services;
+using Infrastructure.Repository.Interface;
 
-namespace Anket.Controllers
+namespace Infrastructure.Repository
 {
-    [ApiController]
-    [Route("[controller]")]
-    public class DataController : Controller
+    public class DsuRepository : DSUActiveData, IDsuRepository
     {
         private readonly IDSUActiveData _dSUActiveData;
-        public DataController(IDSUActiveData dSUActiveData)
+        public DsuRepository(DSUContext dbContext, IDSUActiveData dSUActiveData) : base(dbContext)
         {
             _dSUActiveData = dSUActiveData;
         }
 
-        [Route("GetStudents")]
-        [HttpGet]
-        public IActionResult GetStudents(int departmentId, int course)
+        public List<StudentDto> GetStudents(int departmentId, int course)
         {
-            List<Student> students = new();
+            List<StudentDto> students = new();
             var zachets = _dSUActiveData.GetCaseUkoZachets().Where(x => x.DeptId == departmentId && x.Course == course).AsEnumerable();
             var exam = _dSUActiveData.GetCaseUkoExams().Where(x => x.DeptId == departmentId && x.Course == course).AsEnumerable();
 
@@ -70,7 +68,7 @@ namespace Anket.Controllers
 
             foreach (var item in examUnionZachets)
             {
-                var student = new Student
+                var student = new StudentDto
                 {
                     Id = item.Id,
                     FacId = item.FacId,
@@ -84,12 +82,10 @@ namespace Anket.Controllers
                     students.Add(student);
             }
 
-            return Ok(students);
+            return students;
         }
 
-        [Route("GetDisciplineAndTeacherByStudentId")]
-        [HttpGet]
-        public IActionResult GetDisciplineAndTeacherByStudentId(int studentId)
+        public List<DisciplineDto> GetDisciplinesIncludeTeachers(int studentId)
         {
             var zachets = _dSUActiveData.GetCaseUkoZachets().Where(x => x.Id == studentId).AsEnumerable();
             var exam = _dSUActiveData.GetCaseUkoExams().Where(x => x.Id == studentId).AsEnumerable();
@@ -117,24 +113,24 @@ namespace Anket.Controllers
                 Veddate = x.Veddate
             }));
 
-            List<Discipline> disciplines = new();
-            List<Teacher> teachers = new();
+            List<DisciplineDto> disciplines = new();
+            List<TeacherDto> teachers = new();
             foreach (var item in examUnionZachets)
             {
-                var discipline = disciplines.FirstOrDefault(x => x.Id == item.SId) ?? new Discipline
+                var discipline = disciplines.FirstOrDefault(x => x.Id == item.SId) ?? new DisciplineDto
                 {
                     Id = item.SId,
                     Name = item.Predmet,
                 };
-                Teacher teacer1 = new();
-                Teacher teacer2 = new();
-                Teacher teacer3 = new();
-                Teacher teacer4 = new();
-                Teacher teacer5 = new();
+                TeacherDto teacer1 = new();
+                TeacherDto teacer2 = new();
+                TeacherDto teacer3 = new();
+                TeacherDto teacer4 = new();
+                TeacherDto teacer5 = new();
 
                 if (!discipline.Teachers.Any(c => c.Id == teacer1.Id))
                 {
-                    discipline.Teachers.Add(new Teacher
+                    discipline.Teachers.Add(new TeacherDto
                     {
                         Id = item.TeachId1,
                         Fio = item.Prepod?.Split(",")[0]
@@ -142,7 +138,7 @@ namespace Anket.Controllers
                 }
                 if (item.TeachId2 != 0 && !discipline.Teachers.Any(c => c.Id == teacer2.Id))
                 {
-                    discipline.Teachers.Add(new Teacher
+                    discipline.Teachers.Add(new TeacherDto
                     {
                         Id = item.TeachId2,
                         Fio = item.Prepod?.Split(",")[1]
@@ -150,7 +146,7 @@ namespace Anket.Controllers
                 }
                 if (item.TeachId3 != 0 && !discipline.Teachers.Any(c => c.Id == teacer3.Id))
                 {
-                    discipline.Teachers.Add(new Teacher
+                    discipline.Teachers.Add(new TeacherDto
                     {
                         Id = item.TeachId3,
                         Fio = item.Prepod?.Split(",")[2]
@@ -158,7 +154,7 @@ namespace Anket.Controllers
                 }
                 if (item.TeachId4 != 0 && !discipline.Teachers.Any(c => c.Id == teacer4.Id))
                 {
-                    discipline.Teachers.Add(new Teacher
+                    discipline.Teachers.Add(new TeacherDto
                     {
                         Id = item.TeachId4,
                         Fio = item.Prepod?.Split(",")[3]
@@ -166,7 +162,7 @@ namespace Anket.Controllers
                 }
                 if (item.TeachId5 != 0 && !discipline.Teachers.Any(c => c.Id == teacer5.Id))
                 {
-                    discipline.Teachers.Add(new Teacher
+                    discipline.Teachers.Add(new TeacherDto
                     {
                         Id = item.TeachId5,
                         Fio = item.Prepod?.Split(",")[4]
@@ -177,7 +173,7 @@ namespace Anket.Controllers
                     disciplines.Add(discipline);
             }
 
-            return Ok(disciplines);
+            return disciplines;
         }
     }
 }
