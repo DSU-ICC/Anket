@@ -28,7 +28,7 @@ namespace Anket.Controllers
         [HttpGet]
         public IActionResult GetQuestionById(int id)
         {
-            var question = _questionRepository.GetWithIncludeById(x => x.Id == id, x => x.ListAnswer);
+            Question? question = _questionRepository.Get().Include(x => x.ListAnswer).FirstOrDefault(x => x.Id == id);
             if (question == null)
                 return BadRequest("Вопрос не найден");
 

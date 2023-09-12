@@ -15,7 +15,7 @@ namespace DSUContextDBService.Services
             _dSUContext = dSUContext;
         }
 
-        public CaseCEdue GetCaseCEdueById(int id)
+        public CaseCEdue? GetCaseCEdueById(int id)
         {
             return _dSUContext.CaseCEdues.FirstOrDefault(x => x.EduesId == id);
         }
@@ -25,7 +25,7 @@ namespace DSUContextDBService.Services
             return _dSUContext.CaseCEdues;
         }
 
-        public CaseCEdukind GetCaseCEdukindById(int id)
+        public CaseCEdukind? GetCaseCEdukindById(int id)
         {
             return _dSUContext.CaseCEdukinds.FirstOrDefault(x => x.EdukindId == id);
         }
@@ -35,7 +35,7 @@ namespace DSUContextDBService.Services
             return _dSUContext.CaseCEdukinds;
         }
 
-        public CaseCStatus GetCaseCStatusById(int id)
+        public CaseCStatus? GetCaseCStatusById(int id)
         {
             return _dSUContext.CaseCStatuses.FirstOrDefault(x => x.Id == id);
         }
@@ -45,7 +45,7 @@ namespace DSUContextDBService.Services
             return _dSUContext.CaseCStatuses;
         }
 
-        public CaseSDepartment GetCaseSDepartmentById(int id)
+        public CaseSDepartment? GetCaseSDepartmentById(int id)
         {
             return _dSUContext.CaseSDepartments.FirstOrDefault(x => x.DepartmentId == id);
         }
@@ -60,7 +60,7 @@ namespace DSUContextDBService.Services
             return _dSUContext.CaseSDepartments.Where(x => x.Deleted == false);
         }
 
-        public CaseSStudent GetCaseSStudentById(int id)
+        public CaseSStudent? GetCaseSStudentById(int id)
         {
             return _dSUContext.CaseSStudents.FirstOrDefault(x => x.Id == id);
         }
@@ -70,7 +70,7 @@ namespace DSUContextDBService.Services
             return _dSUContext.CaseSStudents;
         }
 
-        public CaseSTeacher GetCaseSTeacherById(int id)
+        public CaseSTeacher? GetCaseSTeacherById(int id)
         {
             return _dSUContext.CaseSTeachers.FirstOrDefault(x => x.TeachId == id);
         }

@@ -18,53 +18,7 @@ namespace Infrastructure.Repository
         public List<StudentDto> GetStudents(int departmentId, int course)
         {
             List<StudentDto> students = new();
-            var zachets = _dSUActiveData.GetCaseUkoZachets().Where(x => x.DeptId == departmentId && x.Course == course).AsEnumerable();
-            var exam = _dSUActiveData.GetCaseUkoExams().Where(x => x.DeptId == departmentId && x.Course == course).AsEnumerable();
-
-            var examUnionZachets = exam.Union(zachets.Select(x => new CaseUkoExam
-            {
-                Id = x.Id,
-                FacId = x.FacId,
-                DeptId = x.DeptId,
-                Course = x.Course,
-                EdukindId = x.EdukindId,
-                Lastname = x.Lastname,
-                Firstname = x.Firstname,
-                Patr = x.Patr,
-                Ngroup = x.Ngroup,
-                SId = x.SId,
-                Predmet = x.Predmet,
-                Prepod = x.Prepod,
-                TeachId1 = x.TeachId1,
-                TeachId2 = x.TeachId2,
-                TeachId3 = x.TeachId3,
-                TeachId4 = x.TeachId4,
-                TeachId5 = x.TeachId5,
-                StudentStatus = x.StudentStatus,
-                Veddate = x.Veddate
-            })).Join(_dSUActiveData.GetCaseSStudents(), x => x.Id, c => c.Id, (x, c) => new
-            {
-                x.Id,
-                x.FacId,
-                x.DeptId,
-                x.Course,
-                x.EdukindId,
-                x.Lastname,
-                x.Firstname,
-                x.Patr,
-                x.Ngroup,
-                x.SId,
-                x.Predmet,
-                x.Prepod,
-                x.TeachId1,
-                x.TeachId2,
-                x.TeachId3,
-                x.TeachId4,
-                x.TeachId5,
-                x.StudentStatus,
-                x.Veddate,
-                NZACHKN = c.Nzachkn,
-            });
+            var examUnionZachets = _dSUActiveData.Ex
 
             foreach (var item in examUnionZachets)
             {

@@ -53,7 +53,7 @@ namespace EorDSU.Controllers
         {
             if (ModelState.IsValid)
             {
-                Employee employee = _employeeRepository.Get().FirstOrDefault(x => x.Id == model.Id);
+                Employee? employee = _employeeRepository.Get().FirstOrDefault(x => x.Id == model.Id);
                 if (employee != null)
                 {
                     employee.Name = model.Login;
@@ -71,7 +71,7 @@ namespace EorDSU.Controllers
         [HttpPost]
         public async Task<ActionResult> DeleteEmployee(string id)
         {
-            Employee employee = _employeeRepository.Get().FirstOrDefault(c => c.Id.ToString() == id);
+            Employee? employee = _employeeRepository.Get().FirstOrDefault(c => c.Id.ToString() == id);
             if (employee == null)
                 return BadRequest("Пользователь не найден");
 

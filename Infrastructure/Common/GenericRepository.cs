@@ -1,6 +1,5 @@
 ﻿using DomainService.Common.Interface;
 using Microsoft.EntityFrameworkCore;
-using System.Linq.Expressions;
 
 namespace DomainService.Common
 {
@@ -25,7 +24,7 @@ namespace DomainService.Common
             return _dbSet.AsNoTracking().Where(predicate);
         }
 
-        public async Task<TEntity> FindById(int id)
+        public async Task<TEntity?> FindById(int id)
         {
             return await _dbSet.FindAsync(id);
         }
@@ -62,31 +61,6 @@ namespace DomainService.Common
         {
             _dbSet.RemoveRange(items);
             await _context.SaveChangesAsync();
-        }
-
-        public IQueryable<TEntity> GetWithInclude(params Expression<Func<TEntity, object>>[] includeProperties)
-        {
-            return Include(includeProperties);
-        }
-        public IEnumerable<TEntity> GetWithInclude(Func<TEntity, bool> predicate,
-                   params Expression<Func<TEntity, object>>[] includeProperties)
-        {
-            var query = Include(includeProperties);
-            return query.Where(predicate);
-        }
-
-        public TEntity GetWithIncludeById(Func<TEntity, bool> id,
-            params Expression<Func<TEntity, object>>[] includeProperties)
-        {
-            var query = Include(includeProperties);
-            return query.FirstOrDefault(id);
-        }
-
-        private IQueryable<TEntity> Include(params Expression<Func<TEntity, object>>[] includeProperties)
-        {
-            IQueryable<TEntity> query = _dbSet.AsNoTracking();
-            return includeProperties
-                .Aggregate(query, (current, includeProperty) => current.Include(includeProperty));
         }
     }
 }

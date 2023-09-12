@@ -1,7 +1,6 @@
 ﻿using Infrastructure.Repository.Interface;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace Anket.Controllers
 {
@@ -18,18 +17,16 @@ namespace Anket.Controllers
 
         [Route("GetDepartments")]
         [HttpGet]
-        public async Task<IActionResult> GetDepartments()
+        public IActionResult GetDepartments()
         {
-            var departments = await _dsuRepository.GetCaseSDepartments().ToListAsync();
-            return Ok(departments);
+            return Ok(_dsuRepository.GetCaseSDepartments());
         }
 
         [Route("GetDepartmentsByFacultyId")]
         [HttpGet]
-        public async Task<IActionResult> GetDepartmentsByFacultyId(int facultyId)
+        public IActionResult GetDepartmentsByFacultyId(int facultyId)
         {
-            var departments = await _dsuRepository.GetCaseSDepartmentByFacultyId(facultyId).ToListAsync();
-            return Ok(departments);
+            return Ok(_dsuRepository.GetCaseSDepartmentByFacultyId(facultyId));
         }
 
         [Route("GetStudents")]
