@@ -3,7 +3,7 @@
     public partial class CaseUkoModule
     {
         public int Id { get; set; }
-        public short StudentStatus { get; set; }
+        public int StudentStatus { get; set; }
         public int FilId { get; set; }
         public int FacId { get; set; }
         public int DeptId { get; set; }
@@ -16,7 +16,7 @@
         public int TeachId1 { get; set; }
         public int TeachId2 { get; set; }
         public int TeachId3 { get; set; }
-        public short Nmod { get; set; }
+        public int Nmod { get; set; }
         public string? Lastname { get; set; }
         public string? Firstname { get; set; }
         public string? Patr { get; set; }

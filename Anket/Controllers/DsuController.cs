@@ -15,25 +15,39 @@ namespace Anket.Controllers
             _dsuRepository = dsuRepository;
         }
 
-        [Route("GetDepartments")]
+        [Route("GetCaseSDepartmentByFacultyId")]
         [HttpGet]
-        public IActionResult GetDepartments()
-        {
-            return Ok(_dsuRepository.GetCaseSDepartments());
-        }
-
-        [Route("GetDepartmentsByFacultyId")]
-        [HttpGet]
-        public IActionResult GetDepartmentsByFacultyId(int facultyId)
+        public IActionResult GetCaseSDepartmentByFacultyId(int facultyId)
         {
             return Ok(_dsuRepository.GetCaseSDepartmentByFacultyId(facultyId));
         }
 
-        [Route("GetStudents")]
+        [Route("GetCourseByDepartmentId")]
         [HttpGet]
-        public IActionResult GetStudents(int departmentId, int course)
+        public IActionResult GetCourseByDepartmentId(int departmentId)
         {
-            return Ok(_dsuRepository.GetStudents(departmentId, course));
+            return Ok(_dsuRepository.GetCoursesByDepartmentId(departmentId));
+        }
+
+        [Route("GetGroupsByDepartmentIdAndCourse")]
+        [HttpGet]
+        public IActionResult GetGroupsByDepartmentIdAndCourse(int departmentId, int course)
+        {
+            return Ok(_dsuRepository.GetGroupsByDepartmentId(departmentId, course));
+        }
+
+        [Route("GetStudentsByCourse")]
+        [HttpGet]
+        public IActionResult GetStudentsByCourse(int departmentId, int course)
+        {
+            return Ok(_dsuRepository.GetCaseSStudents().Where(x => x.DepartmentId == departmentId && x.Course == course));
+        }
+
+        [Route("GetStudentsByCourseAndGroup")]
+        [HttpGet]
+        public IActionResult GetStudentsByCourseAndGroup(int departmentId, int course, string ngroup)
+        {
+            return Ok(_dsuRepository.GetCaseSStudents().Where(x => x.DepartmentId == departmentId && x.Course == course && x.Ngroup == ngroup));
         }
 
         [Route("GetDisciplineAndTeacherByStudentId")]

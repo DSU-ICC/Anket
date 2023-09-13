@@ -140,6 +140,10 @@ namespace DSUContextDBService.DataContext
 
                 entity.Property(e => e.AbiturId).HasColumnName("ABITUR_ID");
 
+                entity.Property(e => e.Course).HasColumnName("COURSE");
+
+                entity.Property(e => e.DepartmentId).HasColumnName("DEPARTMENT_ID");
+
                 entity.Property(e => e.FacId).HasColumnName("FAC_ID");
 
                 entity.Property(e => e.FilId).HasColumnName("FIL_ID");
@@ -158,6 +162,16 @@ namespace DSUContextDBService.DataContext
                     .IsUnicode(false)
                     .HasColumnName("LASTNAME");
 
+                entity.Property(e => e.Ndiplom)
+                    .HasMaxLength(15)
+                    .IsUnicode(false)
+                    .HasColumnName("NDIPLOM");
+
+                entity.Property(e => e.Ngroup)
+                    .HasMaxLength(10)
+                    .IsUnicode(false)
+                    .HasColumnName("NGROUP");
+
                 entity.Property(e => e.Nzachkn)
                     .HasMaxLength(10)
                     .IsUnicode(false)
@@ -167,6 +181,11 @@ namespace DSUContextDBService.DataContext
                     .HasMaxLength(30)
                     .IsUnicode(false)
                     .HasColumnName("PATR");
+
+                entity.Property(e => e.Serdiplom)
+                    .HasMaxLength(6)
+                    .IsUnicode(false)
+                    .HasColumnName("SERDIPLOM");
 
                 entity.Property(e => e.Snils)
                     .HasMaxLength(50)

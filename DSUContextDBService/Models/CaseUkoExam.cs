@@ -3,7 +3,7 @@
     public partial class CaseUkoExam
     {
         public int Id { get; set; }
-        public short StudentStatus { get; set; }
+        public int StudentStatus { get; set; }
         public int FilId { get; set; }
         public int FacId { get; set; }
         public int DeptId { get; set; }
@@ -17,7 +17,7 @@
         public string? Lastname { get; set; }
         public string? Firstname { get; set; }
         public string? Patr { get; set; }
-        public short? Course { get; set; }
+        public int? Course { get; set; }
         public int Mark { get; set; }
         public short Rb { get; set; }
         public int SId { get; set; }

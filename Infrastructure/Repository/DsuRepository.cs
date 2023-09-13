@@ -4,6 +4,7 @@ using DSUContextDBService.Interfaces;
 using DSUContextDBService.Models;
 using DSUContextDBService.Services;
 using Infrastructure.Repository.Interface;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Infrastructure.Repository
 {
@@ -13,76 +14,6 @@ namespace Infrastructure.Repository
         public DsuRepository(DSUContext dbContext, IDSUActiveData dSUActiveData) : base(dbContext)
         {
             _dSUActiveData = dSUActiveData;
-        }
-
-        public List<StudentDto> GetStudents(int departmentId, int course)
-        {
-            List<StudentDto> students = new();
-            var zachets = _dSUActiveData.GetCaseUkoZachets().Where(x => x.DeptId == departmentId && x.Course == course).AsEnumerable();
-            var exam = _dSUActiveData.GetCaseUkoExams().Where(x => x.DeptId == departmentId && x.Course == course).AsEnumerable();
-
-            var examUnionZachets = exam.Union(zachets.Select(x => new CaseUkoExam
-            {
-                Id = x.Id,
-                FacId = x.FacId,
-                DeptId = x.DeptId,
-                Course = x.Course,
-                EdukindId = x.EdukindId,
-                Lastname = x.Lastname,
-                Firstname = x.Firstname,
-                Patr = x.Patr,
-                Ngroup = x.Ngroup,
-                SId = x.SId,
-                Predmet = x.Predmet,
-                Prepod = x.Prepod,
-                TeachId1 = x.TeachId1,
-                TeachId2 = x.TeachId2,
-                TeachId3 = x.TeachId3,
-                TeachId4 = x.TeachId4,
-                TeachId5 = x.TeachId5,
-                StudentStatus = x.StudentStatus,
-                Veddate = x.Veddate
-            })).Join(_dSUActiveData.GetCaseSStudents(), x => x.Id, c => c.Id, (x, c) => new
-            {
-                x.Id,
-                x.FacId,
-                x.DeptId,
-                x.Course,
-                x.EdukindId,
-                x.Lastname,
-                x.Firstname,
-                x.Patr,
-                x.Ngroup,
-                x.SId,
-                x.Predmet,
-                x.Prepod,
-                x.TeachId1,
-                x.TeachId2,
-                x.TeachId3,
-                x.TeachId4,
-                x.TeachId5,
-                x.StudentStatus,
-                x.Veddate,
-                NZACHKN = c.Nzachkn,
-            });
-
-            foreach (var item in examUnionZachets)
-            {
-                var student = new StudentDto
-                {
-                    Id = item.Id,
-                    FacId = item.FacId,
-                    DepartmentId = departmentId,
-                    Course = item.Course,
-                    NGroup = item.Ngroup,
-                    Fio = item.Lastname + " " + item.Firstname + " " + item.Patr,
-                    Nzachkn = item.NZACHKN
-                };
-                if (!students.Any(x => x.DepartmentId == student.DepartmentId && x.Course == student.Course && x.NGroup == student.NGroup && x.Fio == student.Fio))
-                    students.Add(student);
-            }
-
-            return students;
         }
 
         public List<DisciplineDto> GetDisciplinesIncludeTeachers(int studentId)

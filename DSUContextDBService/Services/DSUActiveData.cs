@@ -45,19 +45,53 @@ namespace DSUContextDBService.Services
             return _dSUContext.CaseCStatuses;
         }
 
+        #region Faculties
+        public IQueryable<CaseCFaculty> GetFaculties()
+        {
+            return _dSUContext.CaseCFaculties.Where(x => x.Deleted == false).OrderBy(x => x.FacName);
+        }
+
+        public CaseCFaculty? GetFacultyById(int id)
+        {
+            return _dSUContext.CaseCFaculties.FirstOrDefault(x => x.FacId == id);
+        }
+        #endregion
+
+        #region Departments
         public CaseSDepartment? GetCaseSDepartmentById(int id)
         {
             return _dSUContext.CaseSDepartments.FirstOrDefault(x => x.DepartmentId == id);
         }
 
-        public IQueryable<CaseSDepartment> GetCaseSDepartmentByFacultyId(int? id)
-        {
-            return _dSUContext.CaseSDepartments.Where(x => x.Deleted == false && x.FacId == id);
-        }
-
         public IQueryable<CaseSDepartment> GetCaseSDepartments()
         {
-            return _dSUContext.CaseSDepartments.Where(x => x.Deleted == false);
+            return _dSUContext.CaseSDepartments.Where(x => x.Deleted == false && x.DepartmentId > 0).OrderBy(x => x.DeptName);
+        }        
+
+        public IQueryable<CaseSDepartment> GetCaseSDepartmentByFacultyId(int? facultyId)
+        {
+            return GetCaseSDepartments().Where(x => x.FacId == facultyId);
+        }
+        #endregion
+
+        public List<int?>? GetCoursesByDepartmentId(int departmentId)
+        {
+            return GetCaseSStudents()
+                .Where(x => x.DepartmentId == departmentId)
+                .Select(c => c.Course)
+                .Distinct()
+                .OrderBy(x => x)
+                .ToList();
+        }
+
+        public List<string?>? GetGroupsByDepartmentId(int departmentId, int course)
+        {
+            return GetCaseSStudents()
+                .Where(x => x.DepartmentId == departmentId && x.Course == course)
+                .Select(c => c.Ngroup)
+                .Distinct()
+                .OrderBy(x => x)
+                .ToList();
         }
 
         public CaseSStudent? GetCaseSStudentById(int id)
@@ -67,7 +101,7 @@ namespace DSUContextDBService.Services
 
         public IQueryable<CaseSStudent> GetCaseSStudents()
         {
-            return _dSUContext.CaseSStudents;
+            return _dSUContext.CaseSStudents.Where(x => x.Status == 0).OrderBy(x => x.Firstname);
         }
 
         public CaseSTeacher? GetCaseSTeacherById(int id)
