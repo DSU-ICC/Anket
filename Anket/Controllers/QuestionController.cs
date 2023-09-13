@@ -21,7 +21,7 @@ namespace Anket.Controllers
         [HttpGet]
         public IActionResult GetQuestions()
         {
-            return Ok(_questionRepository.Get().ToListAsync());
+            return Ok(_questionRepository.Get());
         }
 
         [Route("GetQuestionById")]

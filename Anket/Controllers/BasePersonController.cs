@@ -15,13 +15,5 @@ namespace Anket.Controllers
         {
             _basePersonActiveData = basePersonActiveData;
         }
-
-        [Route("GetFaculties")]
-        [HttpGet]
-        public async Task<IActionResult> GetFaculties()
-        {
-            var faculties = await _basePersonActiveData.GetPersDivisions().ToListAsync();
-            return Ok(faculties);
-        }
     }
 }
