@@ -7,6 +7,8 @@ using Sentry;
 using Infrastructure.Repository;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
+using Infrastructure.Repository.Interface;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -17,7 +19,17 @@ builder.Services.AddControllers().AddNewtonsoftJson(options =>
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen(c =>
+{
+    c.SwaggerDoc("v1.0", new Microsoft.OpenApi.Models.OpenApiInfo { Title = "Main API v1.0", Version = "v1.0" });
+    c.AddSecurityDefinition("Bearer", new Microsoft.OpenApi.Models.OpenApiSecurityScheme
+    {
+        Description = "JWT Authorization header using the Bearer scheme. Example: \"Authorization: Bearer {token}\"",
+        Name = "Authorization",
+        In = Microsoft.OpenApi.Models.ParameterLocation.Header,
+        Scheme = "apiKey"
+    });
+});
 
 builder.Services.AddCors(options =>
 {
@@ -80,8 +92,8 @@ var app = builder.Build();
 
 using (var scope = app.Services.CreateScope())
 {
-    var userManager = scope.ServiceProvider.GetRequiredService<EmployeeRepository>();
-    var rolesManager = scope.ServiceProvider.GetRequiredService<RoleRepository>();
+    var userManager = scope.ServiceProvider.GetRequiredService<IEmployeeRepository>();
+    var rolesManager = scope.ServiceProvider.GetRequiredService<IRoleRepository>();
     if (userManager.Get().Count() == 0)
     {
         string adminLogin = builder.Configuration["AdminLogin"];
@@ -96,7 +108,11 @@ app.ConfigureExceptionHandler();
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
-    app.UseSwaggerUI();
+    app.UseSwaggerUI(c =>
+    { 
+        c.SwaggerEndpoint("/swagger/v1.0/swagger.json", "Versioned API v1.0"); 
+        c.DocExpansion(Swashbuckle.AspNetCore.SwaggerUI.DocExpansion.List); 
+    });
 }
 
 app.UseCors("MyAllowCredentialsPolicy");

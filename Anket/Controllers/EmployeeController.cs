@@ -1,9 +1,9 @@
 ﻿using DomainService.Models;
 using DomainService.DtoModels.Account;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Infrastructure.Repository.Interface;
+using Microsoft.EntityFrameworkCore;
 
 namespace EorDSU.Controllers
 {
@@ -24,7 +24,7 @@ namespace EorDSU.Controllers
         [HttpGet]
         public IActionResult GetEmployees()
         {
-            return Ok(_employeeRepository.Get());
+            return Ok(_employeeRepository.Get().Include(x=>x.Role));
         }
 
         [Route("CreateUser")]
@@ -38,7 +38,7 @@ namespace EorDSU.Controllers
                     Name = model.Login,
                     Password = model.Password,
                     Role = model.Role,
-                    RoleId = model.RoleId == null ? null : Guid.Parse(model.RoleId)
+                    RoleId = model.RoleId == null ? null : model.RoleId
                 };
 
                 await _employeeRepository.Create(employee);
@@ -59,7 +59,7 @@ namespace EorDSU.Controllers
                     employee.Name = model.Login;
                     employee.Password = model.Password;
                     employee.Role = model.Role;
-                    employee.RoleId = model.RoleId == null ? null : Guid.Parse(model.RoleId);
+                    employee.RoleId = model.RoleId == null ? null : model.RoleId;
 
                     await _employeeRepository.Update(employee);
                 }

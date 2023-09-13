@@ -1,19 +1,21 @@
 ﻿using DomainService.Models;
 using Infrastructure.Repository;
+using Infrastructure.Repository.Interface;
 
 namespace Anket.Common
 {
     public class RoleInitializer
     {
-        public static async Task InitializeAsync(string adminLogin, string password, EmployeeRepository employeeManager, RoleRepository roleManager)
+        public static async Task InitializeAsync(string adminLogin, string password, IEmployeeRepository employeeRepository, IRoleRepository roleRepository)
         {
-            if (roleManager.Get().FirstOrDefault(x => x.Name == "admin") == null)
+            if (roleRepository.Get().FirstOrDefault(x => x.Name == "admin") == null)
             {
-                await roleManager.Create(new Role("admin"));
+                await roleRepository.Create(new Role("admin"));
             }
-            if (employeeManager.Get().FirstOrDefault(x => x.Name == adminLogin) == null)
+            if (employeeRepository.Get().FirstOrDefault(x => x.Name == adminLogin) == null)
             {
-                Employee admin = new() { Name = adminLogin, Password = password, RoleId = roleManager.Get().FirstOrDefault(x => x.Name == "admin")?.Id };
+                Employee admin = new() { Name = adminLogin, Password = password, RoleId = roleRepository.Get().FirstOrDefault(x => x.Name == "admin")?.Id };
+                await employeeRepository.Create(admin);
             }
         }
     }

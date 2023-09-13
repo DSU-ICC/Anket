@@ -23,6 +23,8 @@ namespace Anket.Common
             services.AddScoped<IResultRepository, ResultRepository>();
             services.AddScoped<ITestingTeacherRepository, TestingTeacherRepository>();
             services.AddScoped<IDsuRepository, DsuRepository>();
+            services.AddScoped<IEmployeeRepository, EmployeeRepository>();
+            services.AddScoped<IRoleRepository, RoleRepository>();
             #endregion
         }
     }

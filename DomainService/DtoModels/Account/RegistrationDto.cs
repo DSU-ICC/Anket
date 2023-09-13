@@ -18,6 +18,6 @@ namespace DomainService.DtoModels.Account
         public Role? Role { get; set; }
 
         [Display(Name = "Id Роли")]
-        public string? RoleId { get; set; }
+        public int? RoleId { get; set; }
     }
 }

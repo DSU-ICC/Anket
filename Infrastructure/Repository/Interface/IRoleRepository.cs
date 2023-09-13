@@ -3,7 +3,7 @@ using DomainService.Models;
 
 namespace Infrastructure.Repository.Interface
 {
-    internal interface IRoleRepository : IGenericRepository<Role>
+    public interface IRoleRepository : IGenericRepository<Role>
     {
     }
 }

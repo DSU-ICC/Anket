@@ -10,5 +10,6 @@ namespace DomainService.Models
         public int? Number { get; set; }
         public DateTime CreateDate { get; set; } = DateTime.Now;
         public List<Answer>? ListAnswer { get; set; } = new List<Answer>();
+        public List<Result>? Results { get; set; } = new List<Result>();
     }
 }

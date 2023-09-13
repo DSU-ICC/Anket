@@ -19,14 +19,29 @@ namespace DomainService.DBService
             Database.EnsureCreated();   // создаем базу данных при первом обращении
         }
 
-        //protected override void OnModelCreating(ModelBuilder modelBuilder)
-        //{
-        //    modelBuilder.Entity<Answer>()
-        //        .HasOne(p => p.Question)
-        //        .WithMany(t => t.ListAnswer)
-        //        .OnDelete(DeleteBehavior.Cascade);
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Answer>()
+                .HasOne(p => p.Question)
+                .WithMany(t => t.ListAnswer)
+                .OnDelete(DeleteBehavior.ClientSetNull);
 
-        //    base.OnModelCreating(modelBuilder);
-        //}
+            modelBuilder.Entity<Result>()
+                .HasOne(p => p.Question)
+                .WithMany(t => t.Results)
+                .OnDelete(DeleteBehavior.ClientSetNull);
+
+            modelBuilder.Entity<Answer>()
+                .HasOne(p => p.Question)
+                .WithMany(t => t.ListAnswer)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<Answer>()
+                .HasOne(p => p.Question)
+                .WithMany(t => t.ListAnswer)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            base.OnModelCreating(modelBuilder);
+        }
     }
 }
