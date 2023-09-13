@@ -58,9 +58,9 @@ namespace Anket.Controllers
             return Ok(_dsuRepository.GetDisciplinesIncludeTeachers(studentId));
         }
 
-        [Route("GetTeacher")]
+        [Route("GetTeachers")]
         [HttpGet]
-        public IActionResult GetTeacher()
+        public IActionResult GetTeachers()
         {
             return Ok(_dsuRepository.GetCaseSTeachers());
         }

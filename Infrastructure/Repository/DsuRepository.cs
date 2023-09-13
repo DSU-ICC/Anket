@@ -30,7 +30,7 @@ namespace Infrastructure.Repository
                 Predmet = x.Predmet,
                 Prepod = x.Prepod,
                 TeachId1 = x.TeachId1
-            }));
+            })).DistinctBy(x=>x.SId);
 
             List<DisciplineDto> disciplines = new();
             List<TeacherDto> teachers = new();
@@ -43,14 +43,11 @@ namespace Infrastructure.Repository
                 };
                 TeacherDto teacer1 = new();
 
-                if (discipline.Teachers.Id != teacer1.Id)
+                discipline.Teachers = new TeacherDto
                 {
-                    discipline.Teachers = new TeacherDto
-                    {
-                        Id = item.TeachId1,
-                        Fio = item.Prepod?.Split(",")[0]
-                    };
-                }
+                    Id = item.TeachId1,
+                    Fio = item.Prepod?.Split(",")[0]
+                };
 
                 if (!disciplines.Any(x => x.Id == discipline.Id))
                     disciplines.Add(discipline);
