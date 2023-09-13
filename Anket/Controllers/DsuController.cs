@@ -1,4 +1,5 @@
-﻿using Infrastructure.Repository.Interface;
+﻿using DomainService.DtoModels;
+using Infrastructure.Repository.Interface;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -55,6 +56,13 @@ namespace Anket.Controllers
         public IActionResult GetDisciplineAndTeacherByStudentId(int studentId)
         {
             return Ok(_dsuRepository.GetDisciplinesIncludeTeachers(studentId));
+        }
+
+        [Route("GetTeacher")]
+        [HttpGet]
+        public IActionResult GetTeacher()
+        {
+            return Ok(_dsuRepository.GetCaseSTeachers());
         }
     }
 }

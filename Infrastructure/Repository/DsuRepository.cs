@@ -24,24 +24,12 @@ namespace Infrastructure.Repository
             var examUnionZachets = exam.Union(zachets.Select(x => new CaseUkoExam
             {
                 Id = x.Id,
-                FacId = x.FacId,
-                DeptId = x.DeptId,
-                Course = x.Course,
-                EdukindId = x.EdukindId,
-                Lastname = x.Lastname,
-                Firstname = x.Firstname,
                 Patr = x.Patr,
                 Ngroup = x.Ngroup,
                 SId = x.SId,
                 Predmet = x.Predmet,
                 Prepod = x.Prepod,
-                TeachId1 = x.TeachId1,
-                TeachId2 = x.TeachId2,
-                TeachId3 = x.TeachId3,
-                TeachId4 = x.TeachId4,
-                TeachId5 = x.TeachId5,
-                StudentStatus = x.StudentStatus,
-                Veddate = x.Veddate
+                TeachId1 = x.TeachId1
             }));
 
             List<DisciplineDto> disciplines = new();
@@ -54,50 +42,14 @@ namespace Infrastructure.Repository
                     Name = item.Predmet,
                 };
                 TeacherDto teacer1 = new();
-                TeacherDto teacer2 = new();
-                TeacherDto teacer3 = new();
-                TeacherDto teacer4 = new();
-                TeacherDto teacer5 = new();
 
-                if (!discipline.Teachers.Any(c => c.Id == teacer1.Id))
+                if (discipline.Teachers.Id != teacer1.Id)
                 {
-                    discipline.Teachers.Add(new TeacherDto
+                    discipline.Teachers = new TeacherDto
                     {
                         Id = item.TeachId1,
                         Fio = item.Prepod?.Split(",")[0]
-                    });
-                }
-                if (item.TeachId2 != 0 && !discipline.Teachers.Any(c => c.Id == teacer2.Id))
-                {
-                    discipline.Teachers.Add(new TeacherDto
-                    {
-                        Id = item.TeachId2,
-                        Fio = item.Prepod?.Split(",")[1]
-                    });
-                }
-                if (item.TeachId3 != 0 && !discipline.Teachers.Any(c => c.Id == teacer3.Id))
-                {
-                    discipline.Teachers.Add(new TeacherDto
-                    {
-                        Id = item.TeachId3,
-                        Fio = item.Prepod?.Split(",")[2]
-                    });
-                }
-                if (item.TeachId4 != 0 && !discipline.Teachers.Any(c => c.Id == teacer4.Id))
-                {
-                    discipline.Teachers.Add(new TeacherDto
-                    {
-                        Id = item.TeachId4,
-                        Fio = item.Prepod?.Split(",")[3]
-                    });
-                }
-                if (item.TeachId5 != 0 && !discipline.Teachers.Any(c => c.Id == teacer5.Id))
-                {
-                    discipline.Teachers.Add(new TeacherDto
-                    {
-                        Id = item.TeachId5,
-                        Fio = item.Prepod?.Split(",")[4]
-                    });
+                    };
                 }
 
                 if (!disciplines.Any(x => x.Id == discipline.Id))

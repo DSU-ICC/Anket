@@ -3,6 +3,7 @@ using DomainService.Models;
 using DomainService.Repository.Interface;
 using DSUContextDBService.Interfaces;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -69,22 +70,14 @@ namespace Anket.Controllers
             return resultViewModel;
         }
 
-        [Route("EndTesting")]
+        [Route("CreateResults")]
         [HttpPost]
-        public async Task<IActionResult> EndTesting(List<Result> results)
+        public async Task<IActionResult> CreateResults(List<Result> results)
         {
             foreach (var result in results)
             {
                 await _resultRepository.Create(result);
             }
-            return Ok();
-        }
-
-        [Route("EndQuestionTesting")]
-        [HttpPost]
-        public async Task<IActionResult> EndQuestionTesting(Result result)
-        {
-            await _resultRepository.Create(result);
             return Ok();
         }
     }
