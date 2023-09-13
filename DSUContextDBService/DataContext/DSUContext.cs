@@ -17,6 +17,7 @@ namespace DSUContextDBService.DataContext
         public virtual DbSet<CaseCEdue> CaseCEdues { get; set; } = null!;
         public virtual DbSet<CaseCEdukind> CaseCEdukinds { get; set; } = null!;
         public virtual DbSet<CaseCStatus> CaseCStatuses { get; set; } = null!;
+        public virtual DbSet<CaseCFaculty> CaseCFaculties { get; set; } = null!;
         public virtual DbSet<CaseSDepartment> CaseSDepartments { get; set; } = null!;
         public virtual DbSet<CaseSStudent> CaseSStudents { get; set; } = null!;
         public virtual DbSet<CaseSTeacher> CaseSTeachers { get; set; } = null!;
@@ -75,7 +76,29 @@ namespace DSUContextDBService.DataContext
                     .HasColumnName("NAME");
             });
 
-            
+            modelBuilder.Entity<CaseCFaculty>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.ToView("CASE_C_FACULTY");
+
+                entity.Property(e => e.Abr)
+                    .HasMaxLength(10)
+                    .IsUnicode(false)
+                    .HasColumnName("ABR");
+
+                entity.Property(e => e.College).HasColumnName("COLLEGE");
+
+                entity.Property(e => e.Deleted).HasColumnName("DELETED");
+
+                entity.Property(e => e.FacId).HasColumnName("FAC_ID");
+
+                entity.Property(e => e.FacName)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("FAC_NAME");
+            });
+
             modelBuilder.Entity<CaseSDepartment>(entity =>
             {
                 entity.HasNoKey();
@@ -102,12 +125,7 @@ namespace DSUContextDBService.DataContext
                     .HasColumnName("DEPT_NAME");
 
                 entity.Property(e => e.FacId).HasColumnName("FAC_ID");
-
-                entity.Property(e => e.Godequalif)
-                    .HasMaxLength(2)
-                    .IsUnicode(false)
-                    .HasColumnName("GODEQUALIF");
-
+                                
                 entity.Property(e => e.Qualification)
                     .HasMaxLength(250)
                     .IsUnicode(false)
