@@ -31,16 +31,6 @@ namespace DomainService.DBService
                 .WithMany(t => t.Results)
                 .OnDelete(DeleteBehavior.ClientSetNull);
 
-            modelBuilder.Entity<Answer>()
-                .HasOne(p => p.Question)
-                .WithMany(t => t.ListAnswer)
-                .OnDelete(DeleteBehavior.Cascade);
-
-            modelBuilder.Entity<Answer>()
-                .HasOne(p => p.Question)
-                .WithMany(t => t.ListAnswer)
-                .OnDelete(DeleteBehavior.Cascade);
-
             base.OnModelCreating(modelBuilder);
         }
     }

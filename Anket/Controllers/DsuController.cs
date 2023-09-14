@@ -16,6 +16,13 @@ namespace Anket.Controllers
             _dsuRepository = dsuRepository;
         }
 
+        [Route("GetFaculties")]
+        [HttpGet]
+        public IActionResult GetFaculties()
+        {
+            return Ok(_dsuRepository.GetFaculties());
+        }
+
         [Route("GetCaseSDepartmentByFacultyId")]
         [HttpGet]
         public IActionResult GetCaseSDepartmentByFacultyId(int facultyId)
