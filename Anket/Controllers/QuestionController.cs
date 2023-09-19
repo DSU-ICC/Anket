@@ -21,7 +21,7 @@ namespace Anket.Controllers
         [HttpGet]
         public IActionResult GetQuestions()
         {
-            return Ok(_questionRepository.Get());
+            return Ok(_questionRepository.Get().Include(x => x.ListAnswer));
         }
 
         [Route("GetQuestionById")]

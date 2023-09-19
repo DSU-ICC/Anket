@@ -26,7 +26,7 @@ namespace Anket.Controllers
         [HttpGet]
         public async Task<IActionResult> GetResults()
         {
-            var results = await _resultRepository.Get().ToListAsync();
+            var results = await _resultRepository.Get().Include(x=>x.Answer).Include(x=>x.Question).ToListAsync();
             return Ok(FillingData(results));
         }
 
@@ -34,7 +34,10 @@ namespace Anket.Controllers
         [HttpGet]
         public async Task<IActionResult> GetResultsByFacultyId(int facultyId)
         {
-            var results = await _resultRepository.Get().Include(x => x.Student).Where(x => x.Student.FacId == facultyId).ToListAsync();
+            var results = await _resultRepository.Get().Include(x => x.Answer)
+                                                       .Include(x => x.Question)
+                                                       .Where(x => _dSUActiveData.GetCaseSStudentById((int)x.StudentId).FacId == facultyId)
+                                                       .ToListAsync();
             return Ok(FillingData(results));
         }
 
@@ -42,7 +45,10 @@ namespace Anket.Controllers
         [HttpGet]
         public async Task<IActionResult> GetResultsByDepartmentId(int departmentId)
         {
-            var results = await _resultRepository.Get().Include(x => x.Student).Where(x => x.Student.DepartmentId == departmentId).ToListAsync();
+            var results = await _resultRepository.Get().Include(x=>x.Answer)
+                                                       .Include(x => x.Question)
+                                                       .Where(x => _dSUActiveData.GetCaseSStudentById((int)x.StudentId).DepartmentId == departmentId)
+                                                       .ToListAsync();
             return Ok(FillingData(results));
         }
 
@@ -50,7 +56,7 @@ namespace Anket.Controllers
         [HttpGet]
         public async Task<IActionResult> GetResultsByTeacherId(int teacherId)
         {
-            var results = await _resultRepository.Get().Where(x => x.TeacherId == teacherId).ToListAsync();
+            var results = await _resultRepository.Get().Include(x => x.Answer).Include(x => x.Question).Where(x => x.TeacherId == teacherId).ToListAsync();
             return Ok(FillingData(results));
         }
 
