@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Anket.Controllers
 {
-    //[Authorize]
+    [Authorize]
     [ApiController]
     [Route("[controller]")]
     public class ResultController : Controller

@@ -22,13 +22,13 @@ namespace Anket.Controllers
             _authOptions = authOptions;
         }
 
-        [Route("Logout")]
-        [HttpGet]
-        public IActionResult Logout()
-        {
-            HttpContext.Session.Clear();
-            return Ok();
-        }
+        //[Route("Logout")]
+        //[HttpGet]
+        //public IActionResult Logout()
+        //{
+        //    HttpContext.Session.Clear();
+        //    return Ok();
+        //}
 
         [Route("Login")]
         [HttpPost]

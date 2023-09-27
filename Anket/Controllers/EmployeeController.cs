@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace EorDSU.Controllers
 {
-    //[Authorize(Roles = "admin")]
+    [Authorize(Roles = "admin")]
     [ApiController]
     [Route("[controller]")]
     public class EmployeeController : Controller
