@@ -6,6 +6,7 @@ using Infrastructure.Repository.Interface;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using Microsoft.EntityFrameworkCore;
+using DomainService.DtoModels;
 
 namespace Anket.Controllers
 {
@@ -35,6 +36,12 @@ namespace Anket.Controllers
         public IActionResult Login(LoginDto loginData)
         {
             Employee? employee = _employeeRepository.Get().Include(x => x.Role).FirstOrDefault(p => p.Name == loginData.Login && p.Password == loginData.Password);
+            EmployeeDto employeeDto = new()
+            {
+                EmployeeId = employee.Id,
+                EmployeeName = employee.Name,
+                Role = employee.Role
+            };
             if (employee != null)
             {
                 var claims = new List<Claim>
@@ -53,7 +60,7 @@ namespace Anket.Controllers
                 var response = new
                 {
                     access_token = encodedJwt,
-                    employee = employee
+                    employeeDto = employeeDto
                 };
                 return Ok(response);
             }

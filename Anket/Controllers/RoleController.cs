@@ -6,8 +6,8 @@ using Microsoft.AspNetCore.Mvc;
 namespace EorDSU.Controllers
 {
     [Authorize(Roles = "admin")]
-    [ApiController]
-    [Route("[controller]")]
+    [ApiController] 
+    [Route("[controller]")] 
     public class RoleController : Controller
     {
         private readonly IRoleRepository _roleRepository;

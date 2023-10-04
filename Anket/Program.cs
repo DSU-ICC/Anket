@@ -106,18 +106,6 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 
 var app = builder.Build();
 
-using (var scope = app.Services.CreateScope())
-{
-    var userManager = scope.ServiceProvider.GetRequiredService<IEmployeeRepository>();
-    var rolesManager = scope.ServiceProvider.GetRequiredService<IRoleRepository>();
-    if (userManager.Get().Count() == 0)
-    {
-        string adminLogin = builder.Configuration["AdminLogin"];
-        string password = builder.Configuration["AdminPassword"];
-        await RoleInitializer.InitializeAsync(adminLogin, password, userManager, rolesManager);
-    }
-}
-
 app.ConfigureExceptionHandler();
 
 // Configure the HTTP request pipeline.
