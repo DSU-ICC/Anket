@@ -3,7 +3,6 @@ using DomainService.Models;
 using DomainService.Repository.Interface;
 using DSUContextDBService.Interfaces;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -34,10 +33,11 @@ namespace Anket.Controllers
         [HttpGet]
         public async Task<IActionResult> GetResultsByFacultyId(int facultyId)
         {
-            var results = await _resultRepository.Get().Include(x => x.Answer)
-                                                       .Include(x => x.Question)
-                                                       .Where(x => _dSUActiveData.GetCaseSStudentById((int)x.StudentId).FacId == facultyId)
-                                                       .ToListAsync();
+            var students = await _dSUActiveData.GetCaseSStudents().Where(x => x.FacId == facultyId).ToListAsync();
+            var results = _resultRepository.Get().Include(x => x.Answer)
+                                                 .Include(x => x.Question).ToList()
+                                                 .Where(x => students.Any(s => s.Id == (int)x.StudentId)).ToList();
+                                                       
             return Ok(FillingData(results));
         }
 
@@ -45,10 +45,11 @@ namespace Anket.Controllers
         [HttpGet]
         public async Task<IActionResult> GetResultsByDepartmentId(int departmentId)
         {
-            var results = await _resultRepository.Get().Include(x=>x.Answer)
-                                                       .Include(x => x.Question)
-                                                       .Where(x => _dSUActiveData.GetCaseSStudentById((int)x.StudentId).DepartmentId == departmentId)
-                                                       .ToListAsync();
+            var students = await _dSUActiveData.GetCaseSStudents().Where(x => x.DepartmentId == departmentId).ToListAsync();
+            var results = _resultRepository.Get().Include(x=>x.Answer)
+                                                 .Include(x => x.Question).ToList()
+                                                 .Where(x => students.Any(s =>s.Id == (int)x.StudentId)).ToList();
+
             return Ok(FillingData(results));
         }
 
@@ -56,11 +57,13 @@ namespace Anket.Controllers
         [HttpGet]
         public async Task<IActionResult> GetResultsByTeacherId(int teacherId)
         {
-            var results = await _resultRepository.Get().Include(x => x.Answer).Include(x => x.Question).Where(x => x.TeacherId == teacherId).ToListAsync();
+            var results = await _resultRepository.Get().Include(x => x.Answer)
+                                                       .Include(x => x.Question)
+                                                       .Where(x => x.TeacherId == teacherId).ToListAsync();
             return Ok(FillingData(results));
         }
 
-        private List<ResultDto> FillingData(List<Result> results)
+        private List<ResultDto> FillingData(IEnumerable<Result> results)
         {
             List<ResultDto> resultViewModel = new();
             foreach (var result in results)
