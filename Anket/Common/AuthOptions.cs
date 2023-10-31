@@ -20,7 +20,7 @@ namespace Anket.Common
                    issuer: Configuration["ISSUER"],
                    audience: Configuration["AUDIENCE"],
                    claims: claims,
-                   expires: DateTime.UtcNow.Add(TimeSpan.FromMinutes(20)),
+                   expires: DateTime.UtcNow.Add(TimeSpan.FromMinutes(120)),
                    signingCredentials: new SigningCredentials(GetSymmetricSecurityKey(), SecurityAlgorithms.HmacSha256));
         }
         public SymmetricSecurityKey GetSymmetricSecurityKey()
