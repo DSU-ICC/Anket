@@ -24,7 +24,7 @@ namespace EorDSU.Controllers
         [HttpGet]
         public IActionResult GetEmployees()
         {
-            return Ok(_employeeRepository.Get().Include(x=>x.Role));
+            return Ok(_employeeRepository.Get().Include(x => x.Role));
         }
 
         [Route("CreateUser")]

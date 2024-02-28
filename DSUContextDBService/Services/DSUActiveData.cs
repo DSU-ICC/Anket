@@ -6,9 +6,6 @@ namespace DSUContextDBService.Services
 {
     public class DSUActiveData : IDSUActiveData
     {
-        //private readonly static int year = DateTime.Now.Date < new DateTime(DateTime.Now.Year, 9, 1) ? DateTime.Now.Year - 1 : DateTime.Now.Year;
-        //private readonly DateTime beginDate = new(year - 1, 9, 1);
-        //private readonly DateTime endDate = new(year, 9, 1);
         private readonly DSUContext _dSUContext;
         public DSUActiveData(DSUContext dSUContext)
         {

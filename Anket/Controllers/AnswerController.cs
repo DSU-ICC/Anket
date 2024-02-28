@@ -2,7 +2,6 @@
 using DomainService.Repository.Interface;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace Anket.Controllers
 {

@@ -4,10 +4,8 @@ using BasePersonDBService.DataContext;
 using DSUContextDBService.DataContext;
 using Microsoft.EntityFrameworkCore;
 using Sentry;
-using Infrastructure.Repository;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
-using Infrastructure.Repository.Interface;
 using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
