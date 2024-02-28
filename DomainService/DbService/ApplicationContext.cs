@@ -11,11 +11,11 @@ namespace DomainService.DBService
         public DbSet<TestingTeacher> TestingTeachers { get; set; } = null!;
         public DbSet<Employee> Moderators { get; set; } = null!;
         public DbSet<Role> Roles { get; set; } = null!;
+        public DbSet<OperationMode> OperationModes { get; set; } = null!;
 
         public ApplicationContext(DbContextOptions<ApplicationContext> options)
             : base(options)
         {
-            //Database.EnsureDeleted();   // удаляем базу данных при первом обращении
             Database.EnsureCreated();   // создаем базу данных при первом обращении
         }
 

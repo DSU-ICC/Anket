@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Anket.Controllers
 {
-    [Authorize]
+    //[Authorize]
     [ApiController]
     [Route("[controller]")]
     public class DsuController : Controller

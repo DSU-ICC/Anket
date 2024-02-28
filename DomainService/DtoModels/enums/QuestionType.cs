@@ -1,4 +1,4 @@
-﻿namespace DomainService.DtoModels
+﻿namespace DomainService.DtoModels.enums
 {
     public enum QuestionType
     {

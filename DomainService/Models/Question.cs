@@ -1,4 +1,4 @@
-﻿using DomainService.DtoModels;
+﻿using DomainService.DtoModels.enums;
 
 namespace DomainService.Models
 {

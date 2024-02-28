@@ -22,8 +22,8 @@ namespace DSUContextDBService.Interfaces
         public CaseCEdue? GetCaseCEdueById(int id);
         public IQueryable<CaseCEdukind> GetCaseCEdukinds();
         public CaseCEdukind? GetCaseCEdukindById(int id);
-        public IQueryable<CaseUkoExam> GetCaseUkoExams();
-        public IQueryable<CaseUkoModule> GetCaseUkoModules();
-        public IQueryable<CaseUkoZachet> GetCaseUkoZachets();
+        public IQueryable<CaseUkoExam> GetCaseUkoExams(DateTime? beginDate = null, DateTime? endDate = null);
+        public IQueryable<CaseUkoModule> GetCaseUkoModules(DateTime? beginDate = null, DateTime? endDate = null);
+        public IQueryable<CaseUkoZachet> GetCaseUkoZachets(DateTime? beginDate = null, DateTime? endDate = null);
     }
 }

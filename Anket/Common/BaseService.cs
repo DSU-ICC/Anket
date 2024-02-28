@@ -25,6 +25,7 @@ namespace Anket.Common
             services.AddScoped<IDsuRepository, DsuRepository>();
             services.AddScoped<IEmployeeRepository, EmployeeRepository>();
             services.AddScoped<IRoleRepository, RoleRepository>();
+            services.AddScoped<IOperationModeRepository, OperationModeRepository>();
             #endregion
         }
     }

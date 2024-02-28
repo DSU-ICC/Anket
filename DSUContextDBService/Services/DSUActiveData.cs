@@ -6,15 +6,16 @@ namespace DSUContextDBService.Services
 {
     public class DSUActiveData : IDSUActiveData
     {
-        private readonly static int year = DateTime.Now.Date < new DateTime(DateTime.Now.Year, 9, 1) ? DateTime.Now.Year - 1 : DateTime.Now.Year;
-        private readonly DateTime beginDate = new(year - 1, 9, 1);
-        private readonly DateTime endDate = new(year, 9, 1);
+        //private readonly static int year = DateTime.Now.Date < new DateTime(DateTime.Now.Year, 9, 1) ? DateTime.Now.Year - 1 : DateTime.Now.Year;
+        //private readonly DateTime beginDate = new(year - 1, 9, 1);
+        //private readonly DateTime endDate = new(year, 9, 1);
         private readonly DSUContext _dSUContext;
         public DSUActiveData(DSUContext dSUContext)
         {
             _dSUContext = dSUContext;
         }
 
+        #region Edues
         public CaseCEdue? GetCaseCEdueById(int id)
         {
             return _dSUContext.CaseCEdues.FirstOrDefault(x => x.EduesId == id);
@@ -24,7 +25,9 @@ namespace DSUContextDBService.Services
         {
             return _dSUContext.CaseCEdues;
         }
+        #endregion
 
+        #region Edukind
         public CaseCEdukind? GetCaseCEdukindById(int id)
         {
             return _dSUContext.CaseCEdukinds.FirstOrDefault(x => x.EdukindId == id);
@@ -34,7 +37,9 @@ namespace DSUContextDBService.Services
         {
             return _dSUContext.CaseCEdukinds;
         }
+        #endregion
 
+        #region Status
         public CaseCStatus? GetCaseCStatusById(int id)
         {
             return _dSUContext.CaseCStatuses.FirstOrDefault(x => x.Id == id);
@@ -44,6 +49,7 @@ namespace DSUContextDBService.Services
         {
             return _dSUContext.CaseCStatuses;
         }
+        #endregion
 
         #region Faculties
         public IQueryable<CaseCFaculty> GetFaculties()
@@ -94,6 +100,7 @@ namespace DSUContextDBService.Services
                 .ToList();
         }
 
+        #region Students
         public CaseSStudent? GetCaseSStudentById(int id)
         {
             return _dSUContext.CaseSStudents.FirstOrDefault(x => x.Id == id);
@@ -103,7 +110,9 @@ namespace DSUContextDBService.Services
         {
             return _dSUContext.CaseSStudents.Where(x => x.Status == 0).OrderBy(x => x.Firstname);
         }
+        #endregion
 
+        #region Teachers
         public CaseSTeacher? GetCaseSTeacherById(int id)
         {
             return _dSUContext.CaseSTeachers.FirstOrDefault(x => x.TeachId == id);
@@ -113,19 +122,26 @@ namespace DSUContextDBService.Services
         {
             return _dSUContext.CaseSTeachers.Where(x => x.TeachId > 0);
         }
+        #endregion
 
-        public IQueryable<CaseUkoExam> GetCaseUkoExams()
+        public IQueryable<CaseUkoExam> GetCaseUkoExams(DateTime? beginDate = null, DateTime? endDate = null)
         {
+            if (beginDate == null && endDate == null)
+                return null;
             return _dSUContext.CaseUkoExams.Where(x => x.Veddate > beginDate && x.Veddate < endDate);
         }
 
-        public IQueryable<CaseUkoModule> GetCaseUkoModules()
+        public IQueryable<CaseUkoModule> GetCaseUkoModules(DateTime? beginDate = null, DateTime? endDate = null)
         {
+            if (beginDate == null && endDate == null)
+                return null;
             return _dSUContext.CaseUkoModules.Where(x => x.Veddate > beginDate && x.Veddate < endDate);
         }
 
-        public IQueryable<CaseUkoZachet> GetCaseUkoZachets()
-        {           
+        public IQueryable<CaseUkoZachet> GetCaseUkoZachets(DateTime? beginDate = null, DateTime? endDate = null)
+        {
+            if (beginDate == null && endDate == null)
+                return null;
             return _dSUContext.CaseUkoZachets.Where(x => x.Veddate > beginDate && x.Veddate < endDate);
         }
     }
