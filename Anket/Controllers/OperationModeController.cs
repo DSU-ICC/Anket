@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Anket.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "admin")]
     [ApiController]
     [Route("[controller]")]
     public class OperationModeController : Controller
