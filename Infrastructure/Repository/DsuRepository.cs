@@ -41,13 +41,13 @@ namespace Infrastructure.Repository
                 Predmet = x.Predmet,
                 Prepod = x.Prepod,
                 TeachId1 = x.TeachId1
-            }));
+            })).DistinctBy(x => x.SId); ;
 
             List<DisciplineDto> disciplines = new();
             List<TeacherDto> teachers = new();
             foreach (var item in examUnionZachets)
             {
-                var discipline = new DisciplineDto
+                var discipline = disciplines.FirstOrDefault(x => x.Id == item.SId) ?? new DisciplineDto
                 {
                     Id = item.SId,
                     Name = item.Predmet,
@@ -60,7 +60,8 @@ namespace Infrastructure.Repository
                     Fio = item.Prepod?.Split(",")[0]
                 };
 
-                disciplines.Add(discipline);
+                if (!disciplines.Any(x => x.Id == discipline.Id))
+                    disciplines.Add(discipline);
             }
 
             return disciplines;
