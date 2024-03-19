@@ -41,7 +41,7 @@ namespace Infrastructure.Repository
                 Predmet = x.Predmet,
                 Prepod = x.Prepod,
                 TeachId1 = x.TeachId1
-            })).DistinctBy(x => x.SId); ;
+            })).DistinctBy(x => x.SId); 
 
             List<DisciplineDto> disciplines = new();
             List<TeacherDto> teachers = new();

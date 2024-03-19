@@ -7,6 +7,7 @@ using Sentry;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using Infrastructure.Logger;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -76,6 +77,8 @@ builder.WebHost.ConfigureServices(configure => SentrySdk.Init(o =>
     // Enable Global Mode if running in a client app
     o.IsGlobalModeEnabled = true;
 }));
+
+//builder.Logging.AddFile(Path.Combine(Directory.GetCurrentDirectory(), builder.Configuration["FileLogger"]));
 
 builder.Services.AddServiceCollection();
 

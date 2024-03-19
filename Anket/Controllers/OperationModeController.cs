@@ -11,6 +11,8 @@ namespace Anket.Controllers
     public class OperationModeController : Controller
     {
         private readonly IOperationModeRepository _operationModeRepository;
+        //private readonly ILoggerFactory _loggerFactory;
+        //private readonly ILogger logger;
         public OperationModeController(IOperationModeRepository operationModeRepository)
         {
             _operationModeRepository = operationModeRepository;
@@ -38,18 +40,24 @@ namespace Anket.Controllers
             return Ok();
         }
 
-        [Route("CreateOperationMode")]
-        [HttpPost]
-        public async Task<IActionResult> CreateOperationMode(OperationMode operationMode)
-        {
-            await _operationModeRepository.Create(operationMode);
-            return Ok();
-        }
-
         [Route("UpdateOperationMode")]
         [HttpPost]
         public async Task<IActionResult> UpdateOperationMode(OperationMode operationMode)
         {
+            //var oldMode = await _operationModeRepository.FindById(operationMode.Id);
+            //if (oldMode == null)
+            //    return BadRequest("Не найден данный режим");
+            //logger.LogInformation("Запрос на изменение режима с ID " + operationMode.Id + "\n Старый период = " + oldMode.BeginDate + " - " + oldMode.EndDate);
+            //try
+            //{
+            //    await _operationModeRepository.Update(operationMode);
+            //    logger.LogInformation("Новый период = " + operationMode.BeginDate + " - " + operationMode.EndDate);
+            //}
+            //catch (Exception ex) { }
+            //{
+            //    logger.LogInformation("Ошибка при попытке обновить период = " + operationMode.BeginDate + " - " + operationMode.EndDate);
+            //}
+
             await _operationModeRepository.Update(operationMode);
             return Ok();
         }

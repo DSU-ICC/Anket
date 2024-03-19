@@ -125,7 +125,7 @@ namespace DSUContextDBService.Services
         {
             if (beginDate == null && endDate == null)
                 return null;
-            return _dSUContext.CaseUkoExams.Where(x => x.Veddate > beginDate && x.Veddate < endDate);
+            return _dSUContext.CaseUkoExams.Where(x => x.Veddate > beginDate && x.Veddate < endDate && x.Tp == 0);
         }
 
         public IQueryable<CaseUkoModule> GetCaseUkoModules(DateTime? beginDate = null, DateTime? endDate = null)
@@ -139,7 +139,7 @@ namespace DSUContextDBService.Services
         {
             if (beginDate == null && endDate == null)
                 return null;
-            return _dSUContext.CaseUkoZachets.Where(x => x.Veddate > beginDate && x.Veddate < endDate);
+            return _dSUContext.CaseUkoZachets.Where(x => x.Veddate > beginDate && x.Veddate < endDate && x.Tp == 0);
         }
     }
 }
