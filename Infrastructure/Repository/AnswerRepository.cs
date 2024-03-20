@@ -1,10 +1,9 @@
-﻿using DomainService.Common;
+﻿using Infrastructure.Common;
 using DomainService.DBService;
 using DomainService.Models;
-using DomainService.Repository.Interface;
-using Microsoft.EntityFrameworkCore;
+using Infrastructure.Repository.Interface;
 
-namespace DomainService.Repository
+namespace Infrastructure.Repository
 {
     public class AnswerRepository : GenericRepository<Answer>, IAnswerRepository
     {

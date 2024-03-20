@@ -1,7 +1,7 @@
-﻿using DomainService.Common.Interface;
+﻿using Infrastructure.Common.Interface;
 using Microsoft.EntityFrameworkCore;
 
-namespace DomainService.Common
+namespace Infrastructure.Common
 {
     public class GenericRepository<TEntity> : IGenericRepository<TEntity> where TEntity : class
     {

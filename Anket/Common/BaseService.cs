@@ -1,7 +1,5 @@
 ﻿using BasePersonDBService.Interfaces;
 using BasePersonDBService.Services;
-using DomainService.Repository;
-using DomainService.Repository.Interface;
 using DSUContextDBService.Interfaces;
 using DSUContextDBService.Services;
 using Infrastructure.Repository;

@@ -1,5 +1,5 @@
 ﻿using DomainService.Models;
-using DomainService.Repository.Interface;
+using Infrastructure.Repository.Interface;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 

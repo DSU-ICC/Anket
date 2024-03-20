@@ -1,6 +1,4 @@
-﻿using System.Linq.Expressions;
-
-namespace DomainService.Common.Interface
+﻿namespace Infrastructure.Common.Interface
 {
     public interface IGenericRepository<TEntity> where TEntity : class
     {

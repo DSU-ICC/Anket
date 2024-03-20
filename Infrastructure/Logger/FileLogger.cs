@@ -1,16 +1,11 @@
 ﻿using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Infrastructure.Logger
 {
     public class FileLogger : ILogger, IDisposable
     {
         readonly string filePath;
-        static readonly object _lock = new();
+        static object _lock = new();
         public FileLogger(string path)
         {
             filePath = path;
@@ -24,6 +19,7 @@ namespace Infrastructure.Logger
 
         public bool IsEnabled(LogLevel logLevel)
         {
+            //return logLevel == LogLevel.Trace;
             return true;
         }
 
@@ -32,7 +28,7 @@ namespace Infrastructure.Logger
         {
             lock (_lock)
             {
-                if (logLevel > LogLevel.Warning || logLevel > LogLevel.Error || logLevel > LogLevel.Critical)
+                if (logLevel == LogLevel.Warning || logLevel == LogLevel.Error || logLevel == LogLevel.Critical)
                     File.AppendAllText(filePath, formatter(state, exception) + Environment.NewLine + DateTime.Now + '\t');
             }
         }

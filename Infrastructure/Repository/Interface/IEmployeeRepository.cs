@@ -1,4 +1,4 @@
-﻿using DomainService.Common.Interface;
+﻿using Infrastructure.Common.Interface;
 using DomainService.Models;
 
 namespace Infrastructure.Repository.Interface

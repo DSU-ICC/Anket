@@ -1,7 +1,7 @@
-﻿using DomainService.Common.Interface;
+﻿using Infrastructure.Common.Interface;
 using DomainService.Models;
 
-namespace DomainService.Repository.Interface
+namespace Infrastructure.Repository.Interface
 {
     public interface IAnswerRepository : IGenericRepository<Answer>
     {

@@ -1,4 +1,6 @@
-﻿namespace Anket.Logger
+﻿using Microsoft.Extensions.Logging;
+
+namespace Infrastructure.Logger
 {
     public static class FileLoggerExtensions
     {

@@ -1,7 +1,7 @@
-﻿using DomainService.Common.Interface;
-using DomainService.Models;
+﻿using DomainService.Models;
+using Infrastructure.Common.Interface;
 
-namespace DomainService.Repository.Interface
+namespace Infrastructure.Repository.Interface
 {
     public interface ITestingTeacherRepository : IGenericRepository<TestingTeacher>
     {

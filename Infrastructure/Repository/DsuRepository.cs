@@ -23,10 +23,9 @@ namespace Infrastructure.Repository
 
         public List<DisciplineDto> GetDisciplinesIncludeTeachers(int studentId)
         {
-            var activeOperationMode = _operationModeRepository.Get().FirstOrDefault(x => x.IsActive == true);
-            if (activeOperationMode == null)
-                activeOperationMode = _operationModeRepository.Get().FirstOrDefault(x => x.TypeOperationMode == TypeOperationMode.Default);
-
+            var activeOperationMode = _operationModeRepository.Get().FirstOrDefault(x => x.IsActive == true) ??
+                                      _operationModeRepository.Get().FirstOrDefault(x => x.TypeOperationMode == TypeOperationMode.Default);
+            
             GetPeriod(activeOperationMode);
 
             var zachets = _dSUActiveData.GetCaseUkoZachets(beginDate, endDate).Where(x => x.Id == studentId).AsEnumerable();

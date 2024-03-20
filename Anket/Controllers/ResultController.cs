@@ -1,6 +1,6 @@
 ﻿using DomainService.DtoModels;
 using DomainService.Models;
-using DomainService.Repository.Interface;
+using Infrastructure.Repository.Interface;
 using DSUContextDBService.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;

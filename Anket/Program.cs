@@ -78,7 +78,7 @@ builder.WebHost.ConfigureServices(configure => SentrySdk.Init(o =>
     o.IsGlobalModeEnabled = true;
 }));
 
-//builder.Logging.AddFile(Path.Combine(Directory.GetCurrentDirectory(), builder.Configuration["FileLogger"]));
+builder.Logging.AddFile(builder.Environment.ContentRootPath + builder.Configuration["FileLogger"]);
 
 builder.Services.AddServiceCollection();
 
