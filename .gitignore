@@ -364,3 +364,4 @@ FodyWeavers.xsd
 /Infrastructure/LogFile
 /Anket/appsettings.json
 /Anket/appsettings.Development.json
+/Anket/LogFile
